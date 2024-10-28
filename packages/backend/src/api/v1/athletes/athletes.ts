@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { PrismaClient } from '@prisma/client';
-import { errorResponse } from '../../../utils/errorResponse';
+import { errorResponse, errorLogMessage } from '../../../utils/errorResponse';
+import logger from '../../../utils/logger';
 
 const prisma = new PrismaClient();
 const v1AthletesRouter = new Hono();
@@ -12,8 +13,10 @@ v1AthletesRouter.post('/', async (c) => {
     const newAthlete = await prisma.athlete.create({
       data: { name, age, team },
     });
+    logger.info(`Created athlete: ${newAthlete.id}`);
     return c.json(newAthlete, 201);
-  } catch (error) {
+  } catch (error: unknown) {
+    logger.error(errorLogMessage('Failed to create athlete', error));
     return c.json(errorResponse(500, 'Failed to create athlete', error), 500);
   }
 });
@@ -22,8 +25,10 @@ v1AthletesRouter.post('/', async (c) => {
 v1AthletesRouter.get('/', async (c) => {
   try {
     const athletes = await prisma.athlete.findMany();
+    logger.info(`Retrieved ${athletes.length} athletes`);
     return c.json(athletes);
-  } catch (error) {
+  } catch (error: unknown) {
+    logger.error(errorLogMessage('Failed to retrieve athletes', error));
     return c.json(
       errorResponse(500, 'Failed to retrieve athletes', error),
       500
@@ -39,10 +44,16 @@ v1AthletesRouter.get('/:id', async (c) => {
       where: { id },
       include: { metrics: true },
     });
-    return athlete
-      ? c.json(athlete)
-      : c.json(errorResponse(404, 'Athlete not found'), 404);
-  } catch (error) {
+
+    if (athlete) {
+      logger.info(`Retrieved athlete: ${athlete.id}`);
+      return c.json(athlete);
+    } else {
+      logger.warn(`Athlete not found: ${id}`);
+      return c.json(errorResponse(404, 'Athlete not found'), 404);
+    }
+  } catch (error: unknown) {
+    logger.error(errorLogMessage('Failed to retrieve athlete', error));
     return c.json(errorResponse(500, 'Failed to retrieve athlete', error), 500);
   }
 });
@@ -56,8 +67,10 @@ v1AthletesRouter.put('/:id', async (c) => {
       where: { id },
       data: { name, age, team },
     });
+    logger.info(`Updated athlete: ${updatedAthlete.id}`);
     return c.json(updatedAthlete);
-  } catch (error) {
+  } catch (error: unknown) {
+    logger.error(errorLogMessage('Failed to update athlete', error));
     return c.json(errorResponse(500, 'Failed to update athlete', error), 500);
   }
 });
@@ -71,14 +84,17 @@ v1AthletesRouter.delete('/:id', async (c) => {
     });
 
     if (!athleteExists) {
+      logger.warn(`Athlete not found for deletion: ${id}`);
       return c.json(errorResponse(404, 'Athlete not found'), 404);
     }
 
     await prisma.metric.deleteMany({ where: { athleteId: id } });
     await prisma.athlete.delete({ where: { id } });
 
+    logger.info(`Deleted athlete and metrics: ${id}`);
     return c.text('Athlete and metrics deleted', 204);
-  } catch (error) {
+  } catch (error: unknown) {
+    logger.error(errorLogMessage('Failed to delete athlete', error));
     return c.json(errorResponse(500, 'Failed to delete athlete', error), 500);
   }
 });

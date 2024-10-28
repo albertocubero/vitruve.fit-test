@@ -1,7 +1,8 @@
 import { Hono } from 'hono';
 import { PrismaClient } from '@prisma/client';
 import { metricSchema } from './validation';
-import { errorResponse } from '../../../utils/errorResponse';
+import { errorResponse, errorLogMessage } from '../../../utils/errorResponse';
+import logger from '../../../utils/logger';
 
 const prisma = new PrismaClient();
 const v1MetricsRouter = new Hono();
@@ -16,34 +17,44 @@ v1MetricsRouter.post('/:id', async (c) => {
     });
 
     if (!athleteExists) {
+      const logMessage = errorLogMessage('Athlete not found', { id });
+      logger.error(logMessage);
       return c.json(errorResponse(404, 'Athlete not found'), 404);
     }
 
     const parsedBody = await c.req.json();
-
-    // Validar el cuerpo de la solicitud
     const validation = metricSchema.safeParse(parsedBody);
     if (!validation.success) {
+      const logMessage = errorLogMessage(
+        'Invalid data provided',
+        validation.error.errors
+      );
+      logger.error(logMessage);
       return c.json(
         errorResponse(400, 'Invalid data provided', validation.error.errors),
         400
-      ); // Usar respuesta de error
+      );
     }
 
-    const { metricType, value, unit } = validation.data; // Usa los datos validados
+    const { metricType, value, unit } = validation.data;
 
-    const newMetric = await prisma.metric.create({
-      data: {
-        athleteId: id,
-        metricType,
-        value,
-        unit,
-        timestamp: new Date(),
-      },
-    });
-
-    return c.json(newMetric, 201);
-  } catch (error) {
+    try {
+      const newMetric = await prisma.metric.create({
+        data: {
+          athleteId: id,
+          metricType,
+          value,
+          unit,
+          timestamp: new Date(),
+        },
+      });
+      return c.json(newMetric, 201);
+    } catch (error: unknown) {
+      logger.error(errorLogMessage('Failed to create metric', error));
+      return c.json(errorResponse(500, 'Failed to create metric', error), 500);
+    }
+  } catch (error: unknown) {
+    logger.error(errorLogMessage('Failed to add metric', error));
     return c.json(errorResponse(500, 'Failed to add metric', error), 500);
   }
 });
@@ -56,7 +67,8 @@ v1MetricsRouter.get('/:id', async (c) => {
       where: { athleteId: id },
     });
     return c.json(metrics);
-  } catch (error) {
+  } catch (error: unknown) {
+    logger.error(errorLogMessage('Failed to retrieve metrics', error));
     return c.json(errorResponse(500, 'Failed to retrieve metrics', error), 500);
   }
 });
