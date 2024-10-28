@@ -42,5 +42,5 @@ Thumbs.db
 .nx/workspace-data
 
 # Winston - Logger
-./combined.log
-./error.log
+combined.log
+error.log
