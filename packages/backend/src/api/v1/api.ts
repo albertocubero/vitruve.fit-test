@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
-import { v1AthletesRouter } from './athletes';
-import { v1MetricsRouter } from './metrics';
+import { v1AthletesRouter } from './athletes/athletes';
+import { v1MetricsRouter } from './metrics/metrics';
 
 const apiRouter = new Hono();
 
