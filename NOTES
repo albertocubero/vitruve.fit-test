@@ -1,0 +1,26 @@
+postgresql
+==========
+bbdd: performance-tracker
+user: alberto
+pass:
+
+
+PostgreSQL Abrir consola:
+# psql postgres
+
+
+PostgreSQL - Conectar
+# psql -U alberto -d performance-tracker
+
+
+Generar nueva configuracion para Prisma
+1) Generar el cliente de Prisma: Después de configurar el esquema, genera el cliente de Prisma con el siguiente comando:
+# npx prisma generate
+2) Migrar el esquema a la base de datos: Aplica las migraciones para que Prisma cree las tablas necesarias en la base de datos PostgreSQL:
+# npx prisma migrate dev --name init
+
+
+Backed - API
+# nx run backend:serve:development 
+    // curl -X GET http://localhost:3000/athletes
+
