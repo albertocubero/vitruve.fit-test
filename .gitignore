@@ -44,3 +44,6 @@ Thumbs.db
 # Winston - Logger
 combined.log
 error.log
+
+# Prisma
+**/prisma/**/*.sql
