@@ -6,7 +6,7 @@ import logger from './utils/logger';
 
 const app = new Hono();
 
-app.route('/v1', v1Router);
+app.route('/api/v1', v1Router);
 
 app.onError((err, c) => {
   logger.error(err.message);
