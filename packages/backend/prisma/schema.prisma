@@ -21,7 +21,6 @@ model Athlete {
  metrics   Metric[]
 }
 
-
 model Metric {
  id          String   @id @default(uuid())
  athleteId   String

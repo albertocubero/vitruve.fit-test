@@ -14,21 +14,78 @@ PostgreSQL - Conectar
 
 
 Generar nueva configuracion para Prisma
-1) Generar el cliente de Prisma: Después de configurar el esquema, genera el cliente de Prisma con el siguiente comando:
-# npx prisma generate
-2) Migrar el esquema a la base de datos: Aplica las migraciones para que Prisma cree las tablas necesarias en la base de datos PostgreSQL:
+1) Migrar el esquema a la base de datos: Aplica las migraciones para que Prisma cree las tablas necesarias en la base de datos PostgreSQL:
 # npx prisma migrate dev --name init
+2) Generar el cliente de Prisma: Después de configurar el esquema, genera el cliente de Prisma con el siguiente comando:
+# npx prisma generate
+
+
+
+
+
+NX - Backend
+============
+# nx run backend:serve:development
+
 
 
 Backed - API
-# nx run backend:serve:development 
-    // curl -X GET http://localhost:3000/v1/athletes
+# nx run backend:serve:development
 
+
+API - CURL
+- ATHLETE - CREATE
+    curl -X POST http://localhost:3000/api/v1/athletes \
+    -H "Content-Type: application/json" \
+    -d '{
+    "name": "John Doe",
+    "age": 28,
+    "team": "Alpha Team"
+    }'
+
+- ATHLETE - GET ALL
+    curl -X GET http://localhost:3000/api/v1/athletes
+
+- ATHLETE - GET ONE
+    curl -X GET http://localhost:3000/api/v1/athletes/{id}
+
+- ATHLETE - UPDATE DATA FROM ONE
+    curl -X PUT http://localhost:3000/api/v1/athletes/{athleteId} \
+    -H "Content-Type: application/json" \
+    -d '{
+    "name": "Nuevo Nombre",
+    "age": 25,
+    "team": "Nuevo Equipo"
+    }'
+
+
+- ATHLETE - DELETE
+    curl -X DELETE http://localhost:3000/api/v1/athletes/{id}
+
+- ATHLETE - ADD METRIC
+    curl -X POST http://localhost:3000/api/v1/athletes/{id}/metrics \
+    -H "Content-Type: application/json" \
+    -d '{
+    "metricType": "Speed",
+    "value": 27.5,
+    "unit": "km/h"
+    }'
+
+- ATHLETE - GET ALL METRICS
+    curl -X GET http://localhost:3000/api/v1/athletes/{id}/metrics
+
+
+
+
+
+
+- Typescript
+- Tests
 
 
 Backend
-- JWT-based authentication system
 - DDD
+- JWT-based authentication system
 - Redis
 - PM2
 - Testing (Jest)

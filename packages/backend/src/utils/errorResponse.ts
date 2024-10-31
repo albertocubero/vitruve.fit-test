@@ -4,10 +4,6 @@ interface ErrorResponse {
   details?: any;
 }
 
-const getErrorDetailsMessage = (error?: unknown): string => {
-  return error instanceof Error ? error.message : String(error);
-};
-
 export const errorResponse = (
   status: number,
   message: string,
@@ -15,14 +11,28 @@ export const errorResponse = (
 ): ErrorResponse => {
   const details = getErrorDetailsMessage(error);
 
-  return {
+  const response: ErrorResponse = {
     status,
     message,
-    details,
   };
+
+  if (details) {
+    response.details = details;
+  }
+
+  return response;
 };
 
-export const errorLogMessage = (message: string, error?: unknown): string => {
+export const errorLogMessage = (message: string, error?: unknown): string | undefined => {
   const details = getErrorDetailsMessage(error);
-  return `${message}: ${details}`;
+
+  if (details) {
+    return `${message}: ${details}`;
+  }
+
+  return;
+};
+
+const getErrorDetailsMessage = (error?: unknown): string | undefined => {
+  return error ? (error instanceof Error ? error.message : String(error)) : undefined;
 };
