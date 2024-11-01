@@ -3,20 +3,21 @@ import { Athlete, IAthlete } from '../../domain/entities/Athlete';
 import { IAthleteRepository } from '../interfaces/IAthleteRepository';
 import { IMetricRepository } from '../interfaces/IMetricRepository';
 import { MetricRepository } from './MetricRepository';
-
-const prisma = new PrismaClient();
+import { prismaBaseServiceFactory } from './PrismaDbConnector';
 
 export class AthleteRepository implements IAthleteRepository {
   private static instance: IAthleteRepository;
   private metricRepository: IMetricRepository;
+  private prismaInstance: PrismaClient;
 
   private constructor(metricRepository: IMetricRepository) {
     this.metricRepository = metricRepository;
+    this.prismaInstance = prismaBaseServiceFactory.getInstance();
   }
 
   async create(athlete: Athlete): Promise<Athlete> {
     try {
-      const createdAthlete: PrismaAthlete = await prisma.athlete.create({
+      const createdAthlete: PrismaAthlete = await this.prismaInstance.athlete.create({
         data: {
           name: athlete.name,
           age: athlete.age,
@@ -31,7 +32,7 @@ export class AthleteRepository implements IAthleteRepository {
 
   async findAll(): Promise<Athlete[]> {
     try {
-      const athletes: PrismaAthlete[] = await prisma.athlete.findMany();
+      const athletes: PrismaAthlete[] = await this.prismaInstance.athlete.findMany();
       return athletes.map(
         (a: PrismaAthlete) => Athlete.create({id: a.id, name: a.name, age: a.age, team: a.team})
       );
@@ -42,7 +43,7 @@ export class AthleteRepository implements IAthleteRepository {
 
   async findById(id: string): Promise<Athlete | null> {
     try {
-      const athlete: PrismaAthlete | null = await prisma.athlete.findUnique({ where: { id } });
+      const athlete: PrismaAthlete | null = await this.prismaInstance.athlete.findUnique({ where: { id } });
       return athlete ? Athlete.create({id: athlete.id, name: athlete.name, age: athlete.age, team: athlete.team}) : null;
     } catch (error) {
       throw new Error(`[ATHLETES] Failed to retrieve athlete by ID: ${error}`);
@@ -51,7 +52,7 @@ export class AthleteRepository implements IAthleteRepository {
 
   async update(id: string, data: Partial<IAthlete>): Promise<Athlete> {
     try {
-      const updatedAthlete: PrismaAthlete = await prisma.athlete.update({
+      const updatedAthlete: PrismaAthlete = await this.prismaInstance.athlete.update({
         where: { id },
         data,
       });
@@ -64,7 +65,7 @@ export class AthleteRepository implements IAthleteRepository {
   async delete(id: string): Promise<void> {
     try {
       await this.metricRepository.deleteMetricsByAthleteId(id);
-      await prisma.athlete.delete({ where: { id } });
+      await this.prismaInstance.athlete.delete({ where: { id } });
     } catch (error) {
       throw new Error(`[ATHLETES] Failed to delete athlete with ID ${id}: ${error}`);
     }
@@ -72,7 +73,7 @@ export class AthleteRepository implements IAthleteRepository {
 
   async exists(athleteId: string): Promise<boolean> {
     try {
-      const athlete: PrismaAthlete | null = await prisma.athlete.findUnique({ where: { id: athleteId } });
+      const athlete: PrismaAthlete | null = await this.prismaInstance.athlete.findUnique({ where: { id: athleteId } });
       return athlete !== null;
     } catch (error) {
       throw new Error(`[ATHLETES] Failed to check existence of athlete with ID ${athleteId}: ${error}`);
