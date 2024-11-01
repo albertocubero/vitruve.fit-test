@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "lib": ["DOM", "ES6"],
     "outDir": "../../dist/out-tsc",
     "types": [
       "node",

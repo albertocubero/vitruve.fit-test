@@ -1,11 +1,22 @@
-import NxWelcome from './nx-welcome';
+// src/App.tsx
+import React from 'react';
+import { IonApp } from '@ionic/react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AthleteTable from '../components/AthleteTable';
+import AthleteDetail from '../components/AthleteDetail';
+import AthleteForm from '../components/AthleteForm';
 
-export function App() {
-  return (
-    <div>
-      <NxWelcome title="frontend" />
-    </div>
-  );
-}
+const App: React.FC = () => (
+  <IonApp>
+    <Router>
+      <Switch>
+        <Route path="/" exact component={AthleteTable} />
+        <Route path="/athletes/edit/:athleteId" render={() => <AthleteForm />} />
+        <Route path="/athletes/new" component={AthleteForm} />
+        <Route path="/athletes/:athleteId" render={() => <AthleteDetail />} />
+      </Switch>
+    </Router>
+  </IonApp>
+);
 
 export default App;

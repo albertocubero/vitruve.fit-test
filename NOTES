@@ -83,16 +83,22 @@ PETICIONES
 
 
 
-
-
-- prisma: encapsular y singleton
+- Repasar mensajes de error
 - Typescript
 - Tests
 
 
 Backend
-- DDD
 - JWT-based authentication system
 - Redis
-- PM2
 - Testing (Jest)
+
+
+
+
+
+
+
+NX - FRONTEND
+=============
+# nx run frontend:serve:development
