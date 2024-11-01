@@ -30,6 +30,11 @@ NX - Backend
         # npx prisma generate
     4) raiz: nx run backend:serve:development --verbose
 
+CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
+# kill $(ps aux | grep nx | awk '{print $2}')
+
+
+
 
 
 
@@ -102,3 +107,6 @@ Backend
 NX - FRONTEND
 =============
 # nx run frontend:serve:development
+
+CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
+# kill $(ps aux | grep nx | awk '{print $2}')

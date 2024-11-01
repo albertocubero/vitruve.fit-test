@@ -14,11 +14,12 @@ export const athleteService = {
     return response.data;
   },
   saveAthlete: async (athlete: Athlete): Promise<Athlete> => {
-    console.log("Saving athlete:", athlete); 
     if (athlete.id) {
-      return await axios.put(`${API_URL}/${athlete.id}`, athlete);
+      const response = await axios.put(`${API_URL}/${athlete.id}`, athlete);
+      return response.data;
     }
-    return await axios.post(API_URL, athlete);
+    const response = await axios.post(API_URL, athlete);
+    return response.data;
   },
   deleteAthlete: async (id: string): Promise<void> => {
     await axios.delete(`${API_URL}/${id}`);

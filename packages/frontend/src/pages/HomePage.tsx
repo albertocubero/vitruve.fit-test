@@ -1,53 +1,40 @@
-// src/pages/HomePage.tsx
 import React from 'react';
-import { useQuery } from 'react-query';
-import { athleteService } from '../services/athleteService';
-import { Athlete } from '../types/Athlete';
 import { Link } from 'react-router-dom';
+import { useDeleteAthlete } from '../hooks/useDeleteAthlete';
+import { AthleteRow } from '../components/home/AthleteTableRow';
+import { useAthletes } from '../hooks/useAthletes';
+import AthleteTableHeaderRow from '../components/home/AthleteTableHeaderRow';
 
 const HomePage: React.FC = () => {
-  const { data: athletes, error, isLoading } = useQuery<Athlete[], Error>(
-    'athletes',
-    athleteService.getAthletes
-  );
+  const { data, error, isLoading } = useAthletes();
+  const deleteAthleteMutation = useDeleteAthlete();
 
-  if (isLoading) return <p>Loading athletes...</p>;
+  const handleDelete = (athleteId: string) => {
+    deleteAthleteMutation.mutate(athleteId);
+  };
+
+  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error fetching athletes</p>;
 
   return (
     <div>
       <h1>Athletes</h1>
-      <Link to="/athlete">Create Athlete</Link>
+      {deleteAthleteMutation.isError && <p>Error deleting athlete.</p>}
+      <Link to="/athletes/new">
+        <button>Add New Athlete</button>
+      </Link>
       <table>
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Team</th>
-            <th>Actions</th>
-          </tr>
+          <AthleteTableHeaderRow />
         </thead>
         <tbody>
-          {athletes && athletes.length > 0 ? (
-            athletes.map((athlete) => (
-              <tr key={athlete.id}>
-                <td>{athlete.name}</td>
-                <td>{athlete.age}</td>
-                <td>{athlete.team}</td>
-                <td>
-                  <Link to={`/athlete/${athlete.id}`}>Edit</Link>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={4}>No athletes available</td>
-            </tr>
-          )}
+          {data?.map((athlete) => (
+            <AthleteRow key={athlete.id} athlete={athlete} onDelete={handleDelete} />
+          ))}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default HomePage;
+export { HomePage };

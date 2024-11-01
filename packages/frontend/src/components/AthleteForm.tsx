@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { athleteService } from '../services/athleteService';
 import { Athlete } from '../types/Athlete';
 
 const validationSchema = Yup.object().shape({
@@ -13,17 +10,19 @@ const validationSchema = Yup.object().shape({
   team: Yup.string().required('Team is required'),
 });
 
-const AthleteForm: React.FC = () => {
-  const queryClient = useQueryClient();
-  const { athleteId } = useParams<{ athleteId: string }>();
+export interface AthleteFormValues {
+  name: string;
+  age: number;
+  team: string;
+}
 
-  const { data: athlete, error, isLoading } = useQuery<Athlete, Error>(
-    ['athlete', athleteId],
-    () => athleteService.getAthlete(athleteId),
-    { enabled: !!athleteId }
-  );
-  
-  const { control, handleSubmit, reset } = useForm<Athlete>({
+interface AthleteFormProps {
+  athlete?: Athlete;
+  onSubmit: (data: AthleteFormValues) => void;
+}
+
+const AthleteForm: React.FC<AthleteFormProps> = ({ athlete, onSubmit }) => {
+  const { control, handleSubmit, reset } = useForm<AthleteFormValues>({
     defaultValues: { name: '', age: 0, team: '' },
     resolver: yupResolver(validationSchema),
   });
@@ -33,22 +32,6 @@ const AthleteForm: React.FC = () => {
       reset(athlete);
     }
   }, [athlete, reset]);
-
-  const mutation = useMutation(athleteService.saveAthlete, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries(['athlete', athleteId]);
-      reset();
-    },
-  });
-
-  const onSubmit = (data: Athlete) => {
-    console.log("Submitting data:", data); // Ver los datos enviados
-
-    mutation.mutate(data);
-  };
-
-  if (isLoading) return <p>Loading athlete...</p>;
-  if (error) return <p>Error loading athlete</p>;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,7 +60,6 @@ const AthleteForm: React.FC = () => {
         />
       </div>
       <button type="submit">Save Athlete</button>
-      {mutation.isError && <p>Error saving athlete</p>}
     </form>
   );
 };

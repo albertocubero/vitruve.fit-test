@@ -1,9 +1,9 @@
-import { Metric } from "./Metric";
+import { Metric } from './Metric';
 
 export interface Athlete {
-    id?: string;
-    name: string;
-    age: number;
-    team: string;
-    metrics?: Metric[];
-  }
+  id?: string;
+  name: string;
+  age: number;
+  team: string;
+  metrics?: Metric[];
+}
