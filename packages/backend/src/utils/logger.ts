@@ -1,4 +1,4 @@
-import { createLogger, format, transports } from 'winston';
+import { createLogger, format, transports, Logger } from 'winston';
 
 const customFormat = format.combine(
   format.timestamp({
@@ -13,7 +13,7 @@ const customFormat = format.combine(
   })
 );
 
-const logger = createLogger({
+const logger: Logger = createLogger({
   level: 'info',
   format: customFormat,
   transports: [

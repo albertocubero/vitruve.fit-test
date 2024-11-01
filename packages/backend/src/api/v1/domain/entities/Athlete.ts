@@ -1,5 +1,11 @@
+export interface IAthlete {
+  name: string;
+  age: number;
+  team: string;
+}
+
 export class Athlete {
-  constructor(
+  private constructor(
     public readonly id: string,
     public name: string,
     public age: number,
@@ -13,5 +19,9 @@ export class Athlete {
       age: this.age,
       team: this.team,
     };
+  }
+
+  static create(id: string, name: string, age: number, team: string): Athlete {
+    return new Athlete(id, name, age, team);
   }
 }

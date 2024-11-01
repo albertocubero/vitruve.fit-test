@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { Athlete } from '../../domain/entities/Athlete';
+import { Athlete, IAthlete } from '../../domain/entities/Athlete';
 import { IAthleteRepository } from '../../domain/interfaces/IAthleteRepository';
 import { IMetricRepository } from '../../domain/interfaces/IMetricRepository';
 import { MetricRepository } from './MetricRepository';
@@ -7,9 +7,10 @@ import { MetricRepository } from './MetricRepository';
 const prisma = new PrismaClient();
 
 export class AthleteRepository implements IAthleteRepository {
+  private static instance: IAthleteRepository;
   private metricRepository: IMetricRepository;
 
-  constructor(metricRepository: IMetricRepository) {
+  private constructor(metricRepository: IMetricRepository) {
     this.metricRepository = metricRepository;
   }
 
@@ -21,27 +22,27 @@ export class AthleteRepository implements IAthleteRepository {
         team: athlete.team,
       },
     });
-    return new Athlete(createdAthlete.id, createdAthlete.name, createdAthlete.age, createdAthlete.team);
+    return Athlete.create(createdAthlete.id, createdAthlete.name, createdAthlete.age, createdAthlete.team);
   }
 
   async findAll(): Promise<Athlete[]> {
     const athletes = await prisma.athlete.findMany();
     return athletes.map(
-      (a) => new Athlete(a.id, a.name, a.age, a.team)
+      (a) => Athlete.create(a.id, a.name, a.age, a.team)
     );
   }
 
   async findById(id: string): Promise<Athlete | null> {
     const athlete = await prisma.athlete.findUnique({ where: { id } });
-    return athlete ? new Athlete(athlete.id, athlete.name, athlete.age, athlete.team) : null;
+    return athlete ? Athlete.create(athlete.id, athlete.name, athlete.age, athlete.team) : null;
   }
 
-  async update(id: string, data: Partial<Athlete>): Promise<Athlete> {
+  async update(id: string, data: Partial<IAthlete>): Promise<Athlete> {
     const updatedAthlete = await prisma.athlete.update({
       where: { id },
       data,
     });
-    return new Athlete(updatedAthlete.id, updatedAthlete.name, updatedAthlete.age, updatedAthlete.team);
+    return Athlete.create(updatedAthlete.id, updatedAthlete.name, updatedAthlete.age, updatedAthlete.team);
   }
 
   async delete(id: string): Promise<void> {
@@ -54,8 +55,11 @@ export class AthleteRepository implements IAthleteRepository {
     return athlete !== null;
   }
 
-  static createRepository(): IAthleteRepository {
-    return new AthleteRepository(MetricRepository.createRepository());
+  static create(): IAthleteRepository {
+    if (!AthleteRepository.instance) {
+      AthleteRepository.instance = new AthleteRepository(MetricRepository.create());
+    }
+    return AthleteRepository.instance;
   }
 }
 

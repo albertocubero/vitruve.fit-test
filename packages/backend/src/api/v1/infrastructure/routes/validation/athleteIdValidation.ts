@@ -4,7 +4,7 @@ import { errorResponse } from '../../../../../utils/errorResponse';
 import logger from '../../../../../utils/logger';
 import { AthleteRepository } from '../../repositories/AthleteRepository';
 
-const athleteRepository = AthleteRepository.createRepository();
+const athleteRepository = AthleteRepository.create();
 
 export const athleteIdSchema = z.object({
     athleteId: z.string().min(1, 'Athlete ID is required'),

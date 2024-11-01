@@ -79,6 +79,8 @@ API - CURL
 
 
 
+
+- Singleton
 - Typescript
 - Tests
 

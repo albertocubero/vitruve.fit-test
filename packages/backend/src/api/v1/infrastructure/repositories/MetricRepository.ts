@@ -5,6 +5,8 @@ import { IMetricRepository } from '../../domain/interfaces/IMetricRepository';
 const prisma = new PrismaClient();
 
 export class MetricRepository implements IMetricRepository {
+  private static instance: IMetricRepository
+
   async create(metric: Metric): Promise<Metric> {
     const createdMetric = await prisma.metric.create({
       data: {
@@ -15,7 +17,7 @@ export class MetricRepository implements IMetricRepository {
         timestamp: metric.timestamp,
       },
     });
-    return new Metric(
+    return Metric.create(
       createdMetric.id,
       createdMetric.athleteId,
       createdMetric.metricType,
@@ -31,7 +33,7 @@ export class MetricRepository implements IMetricRepository {
     });
     return metrics.map(
       (m) =>
-        new Metric(
+        Metric.create(
           m.id,
           m.athleteId,
           m.metricType,
@@ -48,7 +50,10 @@ export class MetricRepository implements IMetricRepository {
     });
   }
 
-  static createRepository(): IMetricRepository {
-    return new MetricRepository();
+  static create(): IMetricRepository {
+    if (!MetricRepository.instance) {
+      MetricRepository.instance = new MetricRepository();
+    }
+    return MetricRepository.instance;
   }
 }

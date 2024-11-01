@@ -1,7 +1,7 @@
 interface ErrorResponse {
   status: number;
   message: string;
-  details?: any;
+  details?: string | undefined;
 }
 
 export const errorResponse = (
