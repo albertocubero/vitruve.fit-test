@@ -14,7 +14,7 @@ export const validateAthleteId = async (c: Context, next: Next) => {
   try {
     const validation = athleteIdSchema.safeParse(c.req.param());
     if (!validation.success) {
-      const logMessage = `Invalid Athlete with ID provided: ${validation.error.errors[0].message}`;
+      const logMessage = `Invalid Athlete with ID: ${validation.error.errors[0].message}`;
       logger.error(logMessage);
       return c.json(errorResponse(400, logMessage), 400);
     }
@@ -22,7 +22,7 @@ export const validateAthleteId = async (c: Context, next: Next) => {
     const athleteId = validation.data.athleteId;
     const exists = await athleteRepository.exists(athleteId);
     if (!exists) {
-      const logMessage = `Athlete with ID ${athleteId} does not exist.`;
+      const logMessage = `Athlete with ID [${athleteId}] does not exist.`;
       logger.error(logMessage);
       return c.json(errorResponse(404, logMessage), 404);
     }

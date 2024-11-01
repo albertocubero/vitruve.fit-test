@@ -41,33 +41,33 @@ export class AthleteRepository implements IAthleteRepository {
     }
   }
 
-  async findById(id: string): Promise<Athlete | null> {
+  async findById(athleteId: string): Promise<Athlete | null> {
     try {
-      const athlete: PrismaAthlete | null = await this.prismaInstance.athlete.findUnique({ where: { id } });
+      const athlete: PrismaAthlete | null = await this.prismaInstance.athlete.findUnique({ where: { id: athleteId } });
       return athlete ? Athlete.create({id: athlete.id, name: athlete.name, age: athlete.age, team: athlete.team}) : null;
     } catch (error) {
-      throw new Error(`[ATHLETES] Failed to retrieve athlete by ID: ${error}`);
+      throw new Error(`[ATHLETES] Failed to retrieve athlete by ID [${athleteId}]: ${error}`);
     }
   }
 
-  async update(id: string, data: Partial<IAthlete>): Promise<Athlete> {
+  async update(athleteId: string, data: Partial<IAthlete>): Promise<Athlete> {
     try {
       const updatedAthlete: PrismaAthlete = await this.prismaInstance.athlete.update({
-        where: { id },
+        where: { id: athleteId },
         data,
       });
       return Athlete.create({id: updatedAthlete.id, name: updatedAthlete.name, age: updatedAthlete.age, team: updatedAthlete.team});
     } catch (error) {
-      throw new Error(`[ATHLETES] Failed to update athlete with ID ${id}: ${error}`);
+      throw new Error(`[ATHLETES] Failed to update athlete with ID [${athleteId}]: ${error}`);
     }
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(athleteId: string): Promise<void> {
     try {
-      await this.metricRepository.deleteMetricsByAthleteId(id);
-      await this.prismaInstance.athlete.delete({ where: { id } });
+      await this.metricRepository.deleteMetricsByAthleteId(athleteId);
+      await this.prismaInstance.athlete.delete({ where: { id: athleteId } });
     } catch (error) {
-      throw new Error(`[ATHLETES] Failed to delete athlete with ID ${id}: ${error}`);
+      throw new Error(`[ATHLETES] Failed to delete athlete with ID [${athleteId}]: ${error}`);
     }
   }
 
