@@ -6,7 +6,7 @@ import { Athlete } from '../types/Athlete';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
-  age: Yup.number().required('Age is required').positive().integer(),
+  age: Yup.number().required('Age is required').positive().integer().min(1, 'Age must be at least 1'),
   team: Yup.string().required('Team is required'),
 });
 
@@ -22,7 +22,7 @@ interface AthleteFormProps {
 }
 
 const AthleteForm: React.FC<AthleteFormProps> = ({ athlete, onSubmit }) => {
-  const { control, handleSubmit, reset } = useForm<AthleteFormValues>({
+  const { control, handleSubmit, reset, formState: { errors } } = useForm<AthleteFormValues>({
     defaultValues: { name: '', age: 0, team: '' },
     resolver: yupResolver(validationSchema),
   });
@@ -40,7 +40,12 @@ const AthleteForm: React.FC<AthleteFormProps> = ({ athlete, onSubmit }) => {
         <Controller
           name="name"
           control={control}
-          render={({ field }) => <input {...field} />}
+          render={({ field }) => (
+            <>
+              <input {...field} />
+              {errors.name && <p style={{ color: 'red' }}>{errors.name.message}</p>}
+            </>
+          )}
         />
       </div>
       <div>
@@ -48,7 +53,12 @@ const AthleteForm: React.FC<AthleteFormProps> = ({ athlete, onSubmit }) => {
         <Controller
           name="age"
           control={control}
-          render={({ field }) => <input type="number" {...field} />}
+          render={({ field }) => (
+            <>
+              <input type="number" {...field} />
+              {errors.age && <p style={{ color: 'red' }}>{errors.age.message}</p>}
+            </>
+          )}
         />
       </div>
       <div>
@@ -56,7 +66,12 @@ const AthleteForm: React.FC<AthleteFormProps> = ({ athlete, onSubmit }) => {
         <Controller
           name="team"
           control={control}
-          render={({ field }) => <input {...field} />}
+          render={({ field }) => (
+            <>
+              <input {...field} />
+              {errors.team && <p style={{ color: 'red' }}>{errors.team.message}</p>}
+            </>
+          )}
         />
       </div>
       <button type="submit">Save Athlete</button>
