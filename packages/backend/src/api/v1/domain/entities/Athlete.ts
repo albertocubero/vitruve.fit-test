@@ -1,27 +1,19 @@
 export interface IAthlete {
+  id?: string;
   name: string;
   age: number;
   team: string;
 }
 
-export class Athlete {
+export class Athlete implements IAthlete{
   private constructor(
-    public readonly id: string,
+    public readonly id: string | undefined,
     public name: string,
     public age: number,
     public team: string
   ) {}
 
-  toString() {
-    return {
-      id: this.id,
-      name: this.name,
-      age: this.age,
-      team: this.team,
-    };
-  }
-
-  static create(id: string, name: string, age: number, team: string): Athlete {
-    return new Athlete(id, name, age, team);
+  static create({id, name, age, team}: IAthlete): Athlete {
+    return new Athlete(id ?? undefined, name, age, team);
   }
 }

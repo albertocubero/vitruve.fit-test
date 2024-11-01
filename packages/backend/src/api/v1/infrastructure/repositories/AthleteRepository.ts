@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Athlete as PrismaAthlete } from '@prisma/client';
 import { Athlete, IAthlete } from '../../domain/entities/Athlete';
-import { IAthleteRepository } from '../../domain/interfaces/IAthleteRepository';
-import { IMetricRepository } from '../../domain/interfaces/IMetricRepository';
+import { IAthleteRepository } from '../interfaces/IAthleteRepository';
+import { IMetricRepository } from '../interfaces/IMetricRepository';
 import { MetricRepository } from './MetricRepository';
 
 const prisma = new PrismaClient();
@@ -15,44 +15,68 @@ export class AthleteRepository implements IAthleteRepository {
   }
 
   async create(athlete: Athlete): Promise<Athlete> {
-    const createdAthlete = await prisma.athlete.create({
-      data: {
-        name: athlete.name,
-        age: athlete.age,
-        team: athlete.team,
-      },
-    });
-    return Athlete.create(createdAthlete.id, createdAthlete.name, createdAthlete.age, createdAthlete.team);
+    try {
+      const createdAthlete: PrismaAthlete = await prisma.athlete.create({
+        data: {
+          name: athlete.name,
+          age: athlete.age,
+          team: athlete.team,
+        },
+      });
+      return Athlete.create({id: createdAthlete.id, name: createdAthlete.name, age: createdAthlete.age, team: createdAthlete.team});
+    } catch (error) {
+      throw new Error(`[ATHLETES] Failed to create athlete: ${error}`);
+    }
   }
 
   async findAll(): Promise<Athlete[]> {
-    const athletes = await prisma.athlete.findMany();
-    return athletes.map(
-      (a) => Athlete.create(a.id, a.name, a.age, a.team)
-    );
+    try {
+      const athletes: PrismaAthlete[] = await prisma.athlete.findMany();
+      return athletes.map(
+        (a: PrismaAthlete) => Athlete.create({id: a.id, name: a.name, age: a.age, team: a.team})
+      );
+    } catch (error) {
+      throw new Error(`[ATHLETES] Failed to retrieve athletes: ${error}`);
+    }
   }
 
   async findById(id: string): Promise<Athlete | null> {
-    const athlete = await prisma.athlete.findUnique({ where: { id } });
-    return athlete ? Athlete.create(athlete.id, athlete.name, athlete.age, athlete.team) : null;
+    try {
+      const athlete: PrismaAthlete | null = await prisma.athlete.findUnique({ where: { id } });
+      return athlete ? Athlete.create({id: athlete.id, name: athlete.name, age: athlete.age, team: athlete.team}) : null;
+    } catch (error) {
+      throw new Error(`[ATHLETES] Failed to retrieve athlete by ID: ${error}`);
+    }
   }
 
   async update(id: string, data: Partial<IAthlete>): Promise<Athlete> {
-    const updatedAthlete = await prisma.athlete.update({
-      where: { id },
-      data,
-    });
-    return Athlete.create(updatedAthlete.id, updatedAthlete.name, updatedAthlete.age, updatedAthlete.team);
+    try {
+      const updatedAthlete: PrismaAthlete = await prisma.athlete.update({
+        where: { id },
+        data,
+      });
+      return Athlete.create({id: updatedAthlete.id, name: updatedAthlete.name, age: updatedAthlete.age, team: updatedAthlete.team});
+    } catch (error) {
+      throw new Error(`[ATHLETES] Failed to update athlete with ID ${id}: ${error}`);
+    }
   }
 
   async delete(id: string): Promise<void> {
-    await this.metricRepository.deleteMetricsByAthleteId(id);
-    await prisma.athlete.delete({ where: { id } });
+    try {
+      await this.metricRepository.deleteMetricsByAthleteId(id);
+      await prisma.athlete.delete({ where: { id } });
+    } catch (error) {
+      throw new Error(`[ATHLETES] Failed to delete athlete with ID ${id}: ${error}`);
+    }
   }
 
   async exists(athleteId: string): Promise<boolean> {
-    const athlete = await prisma.athlete.findUnique({ where: { id: athleteId } });
-    return athlete !== null;
+    try {
+      const athlete: PrismaAthlete | null = await prisma.athlete.findUnique({ where: { id: athleteId } });
+      return athlete !== null;
+    } catch (error) {
+      throw new Error(`[ATHLETES] Failed to check existence of athlete with ID ${athleteId}: ${error}`);
+    }
   }
 
   static create(): IAthleteRepository {

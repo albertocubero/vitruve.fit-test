@@ -1,5 +1,5 @@
 import { Metric } from "../../../domain/entities/Metric";
-import { IMetricRepository } from "../../../domain/interfaces/IMetricRepository";
+import { IMetricRepository } from "../../../infrastructure/interfaces/IMetricRepository";
 import { MetricRepository } from "../../../infrastructure/repositories/MetricRepository";
 
 export interface IGetMetricsUseCase {

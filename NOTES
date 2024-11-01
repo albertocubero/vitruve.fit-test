@@ -13,13 +13,6 @@ PostgreSQL - Conectar
 # psql -U alberto -d performance-tracker
 
 
-Generar nueva configuracion para Prisma
-1) Migrar el esquema a la base de datos: Aplica las migraciones para que Prisma cree las tablas necesarias en la base de datos PostgreSQL:
-# npx prisma migrate dev --name init
-2) Generar el cliente de Prisma: Después de configurar el esquema, genera el cliente de Prisma con el siguiente comando:
-# npx prisma generate
-
-
 
 
 
@@ -27,13 +20,25 @@ NX - Backend
 ============
 # nx run backend:serve:development
 
+    ERROR no arranca despues de "nx reset"
+    1) packages/backend: rm -rf node_modules
+    2) packages/backend: npm i
+    3) packages/backend: Generar nueva configuracion para Prisma
+        1) Migrar el esquema a la base de datos: Aplica las migraciones para que Prisma cree las tablas necesarias en la base de datos PostgreSQL:
+        # npx prisma migrate dev --name init
+        2) Generar el cliente de Prisma: Después de configurar el esquema, genera el cliente de Prisma con el siguiente comando:
+        # npx prisma generate
+    4) raiz: nx run backend:serve:development --verbose
 
 
-Backed - API
-# nx run backend:serve:development
 
 
-API - CURL
+PETICIONES
+==========
+
+- ATHLETE - GET ALL
+    curl -X GET http://localhost:3000/api/v1/athletes
+
 - ATHLETE - CREATE
     curl -X POST http://localhost:3000/api/v1/athletes \
     -H "Content-Type: application/json" \
@@ -42,9 +47,6 @@ API - CURL
     "age": 28,
     "team": "Alpha Team"
     }'
-
-- ATHLETE - GET ALL
-    curl -X GET http://localhost:3000/api/v1/athletes
 
 - ATHLETE - GET ONE
     curl -X GET http://localhost:3000/api/v1/athletes/{id}
@@ -62,6 +64,11 @@ API - CURL
 - ATHLETE - DELETE
     curl -X DELETE http://localhost:3000/api/v1/athletes/{id}
 
+
+- ATHLETE - GET ALL METRICS
+    curl -X GET http://localhost:3000/api/v1/athletes/{id}/metrics
+
+
 - ATHLETE - ADD METRIC
     curl -X POST http://localhost:3000/api/v1/athletes/{id}/metrics \
     -H "Content-Type: application/json" \
@@ -71,8 +78,6 @@ API - CURL
     "unit": "km/h"
     }'
 
-- ATHLETE - GET ALL METRICS
-    curl -X GET http://localhost:3000/api/v1/athletes/{id}/metrics
 
 
 
@@ -80,7 +85,7 @@ API - CURL
 
 
 
-- Singleton
+- prisma: encapsular y singleton
 - Typescript
 - Tests
 

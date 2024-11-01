@@ -1,4 +1,4 @@
-import { IMetric, Metric } from '../entities/Metric';
+import { IMetric, Metric } from "../../domain/entities/Metric";
 
 export interface IMetricRepository {
   create(metric: IMetric): Promise<Metric>;

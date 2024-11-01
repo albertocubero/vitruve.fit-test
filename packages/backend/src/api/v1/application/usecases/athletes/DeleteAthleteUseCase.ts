@@ -1,4 +1,4 @@
-import { IAthleteRepository } from '../../../domain/interfaces/IAthleteRepository';
+import { IAthleteRepository } from '../../../infrastructure/interfaces/IAthleteRepository';
 import { AthleteRepository } from '../../../infrastructure/repositories/AthleteRepository';
 
 export interface IDeleteAthleteUseCase {

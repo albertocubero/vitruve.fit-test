@@ -1,7 +1,7 @@
-import { Athlete, IAthlete } from '../entities/Athlete';
+import { Athlete, IAthlete } from "../../domain/entities/Athlete";
 
 export interface IAthleteRepository {
-  create(athlete: Athlete): Promise<Athlete>;
+  create(athlete: IAthlete): Promise<Athlete>;
   findAll(): Promise<Athlete[]>;
   findById(id: string): Promise<Athlete | null>;
   update(id: string, athlete: Partial<IAthlete>): Promise<Athlete>;

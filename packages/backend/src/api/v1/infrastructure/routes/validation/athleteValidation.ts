@@ -37,6 +37,15 @@ const validateAthleteParams = async (c: Context, next: Next, schema: z.ZodSchema
 };
 
 export const validateUpdateAthlete = async (c: Context, next: Next) => {
-  await validateAthleteId(c, next);
-  await validateUpdateAthleteParams(c, next);
+  const athleteIdValidation = await validateAthleteId(c, () => Promise.resolve());
+  if (athleteIdValidation) {
+    return athleteIdValidation;
+  }
+
+  const updateParamsValidation = await validateUpdateAthleteParams(c, () => Promise.resolve());
+  if (updateParamsValidation) {
+    return updateParamsValidation;
+  }
+
+  return await next();
 };

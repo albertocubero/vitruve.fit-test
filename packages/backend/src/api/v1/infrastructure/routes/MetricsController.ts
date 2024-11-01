@@ -7,7 +7,7 @@ import {
 } from '../../../../utils/errorResponse';
 import logger from '../../../../utils/logger';
 import { validateAddMetricParams } from './validation/metricValidation';
-import { IMetric } from '../../domain/entities/Metric';
+import { IMetric, Metric } from '../../domain/entities/Metric';
 
 const addMetricUseCase: IAddMetricUseCase = AddMetricUseCase.create();
 const getMetricsUseCase: IGetMetricsUseCase = GetMetricsUseCase.create();
@@ -15,9 +15,9 @@ const getMetricsUseCase: IGetMetricsUseCase = GetMetricsUseCase.create();
 export const metricsController = new Hono();
 
 metricsController.get('/', async (c: Context): Promise<Response> => {
-  const athleteId: string = c.req.param('athleteId') as string;
-
   try {
+    const athleteId: string = c.req.param('athleteId');
+
     const metrics: IMetric[] = await getMetricsUseCase.execute(athleteId);
     return c.json(metrics);
   } catch (error: unknown) {
@@ -28,17 +28,19 @@ metricsController.get('/', async (c: Context): Promise<Response> => {
 });
 
 metricsController.post('/', validateAddMetricParams, async (c: Context): Promise<Response> => {
-  const athleteId: string = c.req.param('athleteId') as string;
-  const { metricType, value, unit }: IMetric = await c.req.json();
-
   try {
-    const metric = await addMetricUseCase.execute({
+    const athleteId: string = c.req.param('athleteId');
+    const { metricType, value, unit }: IMetric = await c.req.json<IMetric>();
+
+    const metric: IMetric = Metric.create({
       athleteId,
       metricType,
       value,
       unit,
     });
-    return c.json(metric, 201);
+
+    const savedMetric = await addMetricUseCase.execute(metric);
+    return c.json(savedMetric, 201);
   } catch (error: unknown) {
     const errorMessage = '[METRIC] Failed to add metric';
     logger.error(errorLogMessage(errorMessage, error));

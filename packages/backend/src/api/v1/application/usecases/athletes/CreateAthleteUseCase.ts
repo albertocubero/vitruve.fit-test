@@ -1,9 +1,9 @@
-import { Athlete, IAthlete } from '../../../domain/entities/Athlete';
-import { IAthleteRepository } from '../../../domain/interfaces/IAthleteRepository';
+import { IAthlete } from '../../../domain/entities/Athlete';
+import { IAthleteRepository } from '../../../infrastructure/interfaces/IAthleteRepository';
 import { AthleteRepository } from '../../../infrastructure/repositories/AthleteRepository';
 
 export interface ICreateAthleteUseCase {
-  execute(data: IAthlete): Promise<Athlete>;
+  execute(data: IAthlete): Promise<IAthlete>;
 }
 
 export class CreateAthleteUseCase implements ICreateAthleteUseCase{
@@ -11,8 +11,7 @@ export class CreateAthleteUseCase implements ICreateAthleteUseCase{
   
   private constructor(private athleteRepository: IAthleteRepository) {}
 
-  async execute(data: IAthlete): Promise<Athlete> {
-    const athlete = Athlete.create('', data.name, data.age, data.team);
+  async execute(athlete: IAthlete): Promise<IAthlete> {
     return this.athleteRepository.create(athlete);
   }
 

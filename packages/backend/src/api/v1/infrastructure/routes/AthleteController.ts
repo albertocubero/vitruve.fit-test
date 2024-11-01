@@ -5,7 +5,7 @@ import { GetAthleteUseCase, IGetAthleteUseCase } from '../../application/usecase
 import { IUpdateAthleteUseCase, UpdateAthleteUseCase } from '../../application/usecases/athletes/UpdateAthleteUseCase';
 import { validateCreateAthleteParams, validateUpdateAthlete } from './validation/athleteValidation';
 import { validateAthleteId } from './validation/athleteIdValidation';
-import { IAthlete } from '../../domain/entities/Athlete';
+import { Athlete, IAthlete } from '../../domain/entities/Athlete';
 import { errorResponse, errorLogMessage } from '../../../../utils/errorResponse';
 import logger from '../../../../utils/logger';
 import { DeleteAthleteUseCase, IDeleteAthleteUseCase } from '../../application/usecases/athletes/DeleteAthleteUseCase';
@@ -20,7 +20,7 @@ export const athleteController = new Hono();
 
 athleteController.get('/', async (c: Context) => {
   try {
-    const athletes = await getAllAthletesUseCase.execute();
+    const athletes: Athlete[] = await getAllAthletesUseCase.execute();
     logger.info(`[ATHLETES] Retrieved ${athletes.length} athletes`);
     return c.json(athletes);
   } catch (error: unknown) {
@@ -32,8 +32,10 @@ athleteController.get('/', async (c: Context) => {
 
 athleteController.post('/', validateCreateAthleteParams, async (c: Context) => {
   try {
-    const { name, age, team }: IAthlete = await c.req.json();
-    const newAthlete = await createAthleteUseCase.execute({ name, age, team });
+    const { name, age, team }: IAthlete = await c.req.json<IAthlete>();
+    const athlete: IAthlete = Athlete.create({name, age, team});
+
+    const newAthlete = await createAthleteUseCase.execute(athlete);
     logger.info(`[ATHLETES] Created athlete: ${newAthlete.id}`);
     return c.json(newAthlete, 201);
   } catch (error: unknown) {
@@ -44,9 +46,9 @@ athleteController.post('/', validateCreateAthleteParams, async (c: Context) => {
 });
 
 athleteController.get('/:athleteId', validateAthleteId, async (c: Context) => {
-  const athleteId: string = c.req.param('athleteId') as string;
+  const athleteId: string = c.req.param('athleteId');
   try {
-    const athlete = await getAthleteUseCase.execute(athleteId);
+    const athlete: IAthlete | null = await getAthleteUseCase.execute(athleteId);
     if (athlete) {
       logger.info(`[ATHLETES] Retrieved athlete: ${athleteId}`);
       return c.json(athlete);
@@ -62,10 +64,10 @@ athleteController.get('/:athleteId', validateAthleteId, async (c: Context) => {
 });
 
 athleteController.put('/:athleteId', validateUpdateAthlete, async (c: Context) => {
-  const athleteId:string = c.req.param('athleteId') as string;
+  const athleteId: string = c.req.param('athleteId');
 
   try {
-    const dataToUpdate: Partial<IAthlete> = await c.req.json();
+    const dataToUpdate: Partial<IAthlete> = await c.req.json<IAthlete>();
     const updatedAthlete = await updateAthleteUseCase.execute(athleteId, dataToUpdate);
     logger.info(`[ATHLETES] Updated athlete: ${athleteId}`);
     return c.json(updatedAthlete);
@@ -77,7 +79,7 @@ athleteController.put('/:athleteId', validateUpdateAthlete, async (c: Context) =
 });
 
 athleteController.delete('/:athleteId', validateAthleteId, async (c: Context) => {
-  const athleteId: string = c.req.param('athleteId') as string;
+  const athleteId: string = c.req.param('athleteId');
 
   try {
     await deleteAthleteUseCase.execute(athleteId);

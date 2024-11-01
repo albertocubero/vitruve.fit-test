@@ -1,9 +1,9 @@
-import { IMetric, Metric } from '../../../domain/entities/Metric';
-import { IMetricRepository } from '../../../domain/interfaces/IMetricRepository';
+import { IMetric } from '../../../domain/entities/Metric';
+import { IMetricRepository } from '../../../infrastructure/interfaces/IMetricRepository';
 import { MetricRepository } from '../../../infrastructure/repositories/MetricRepository';
 
 export interface IAddMetricUseCase {
-  execute(data: IMetric): Promise<Metric>;
+  execute(data: IMetric): Promise<IMetric>;
 }
 
 export class AddMetricUseCase implements IAddMetricUseCase{
@@ -11,15 +11,7 @@ export class AddMetricUseCase implements IAddMetricUseCase{
 
   private constructor(private metricRepository: IMetricRepository) {}
 
-  async execute(data: IMetric): Promise<Metric> {
-    const metric = Metric.create(
-      Date.now().toString(),
-      data.athleteId,
-      data.metricType,
-      data.value,
-      data.unit,
-      new Date()
-    );
+  async execute(metric: IMetric): Promise<IMetric> {
     return this.metricRepository.create(metric);
   }
 
