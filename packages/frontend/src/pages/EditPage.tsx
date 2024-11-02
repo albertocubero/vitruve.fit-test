@@ -1,24 +1,25 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import { Athlete } from '../types/Athlete';
 import MetricsSection from '../components/edit/MetricsSection';
 import AthleteForm from '../components/form/AthleteForm';
-import { useAthlete } from '../hooks/useAthlete';
 import LoadingErrorMessage from '../components/LoadingErrorMessage';
-import useEditAthlete from '../hooks/useEditAthlete'; // Importa el nuevo hook
+import useEditAthlete from '../hooks/athlete/useEditAthlete';
+import { useGetAthlete } from '../hooks/athlete/useGetAthlete';
+import BackToHomeLink from '../components/BackToHomeLink';
 
 const EditPage: React.FC = () => {
   const { athleteId } = useParams<{ athleteId: string }>();
-  const { data: athlete, error: athleteError, isLoading: isAthleteLoading } = useAthlete(athleteId);
+  const { data: athlete, error: athleteError, isLoading: isAthleteLoading } = useGetAthlete(athleteId);
   const { editAthlete } = useEditAthlete(athleteId);
 
-  const onSubmit = (data: Athlete) => {
+  const onSubmit = useCallback((data: Athlete) => {
     editAthlete(data);
-  };
+  }, [editAthlete]);
 
   return (
     <div>
-      <Link to={`/`}>Volver</Link>
+      <BackToHomeLink />
       <h1>Edit Athlete</h1>
       <LoadingErrorMessage isLoading={isAthleteLoading} error={athleteError?.message} />
       <AthleteForm athlete={athlete} onSubmit={onSubmit} />

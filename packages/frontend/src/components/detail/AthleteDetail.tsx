@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Athlete } from '../../types/Athlete';
 import { Metric } from '../../types/Metric';
-import { useAthleteMetrics } from '../../hooks/useAthleteMetrics';
+import { useGetAthleteMetrics } from '../../hooks/metric/useGetAthleteMetrics';
 import AthleteInfo from './AthleteInfo';
 import LoadingErrorMessage from '../LoadingErrorMessage';
 import MetricList from '../metrics/MetricList';
@@ -12,7 +12,7 @@ interface AthleteDetailProps {
 
 const AthleteDetail: React.FC<AthleteDetailProps> = React.memo(({ athlete }) => {
   const [metrics, setMetrics] = useState<Metric[]>([]);
-  const { data: metricsData, error: metricsError, isLoading: isMetricsLoading } = useAthleteMetrics(athlete.id!);
+  const { data: metricsData, error: metricsError, isLoading: isMetricsLoading } = useGetAthleteMetrics(athlete.id!);
 
   useEffect(() => {
     if (metricsData) {

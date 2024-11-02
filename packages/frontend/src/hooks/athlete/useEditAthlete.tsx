@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { athleteService } from '../services/athleteService';
-import { Athlete } from '../types/Athlete';
+import { athleteService } from '../../services/athleteService';
+import { Athlete } from '../../types/Athlete';
+import { useCallback } from 'react';
 
 const useEditAthlete = (athleteId: string) => {
   const queryClient = useQueryClient();
@@ -9,17 +10,20 @@ const useEditAthlete = (athleteId: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries(['athlete', athleteId]);
     },
+    onError: (error) => {
+      console.error('Error updating athlete:', error);
+    },
   });
 
-  const editAthlete = (data: Athlete) => {
+  const editAthlete = useCallback((data: Athlete) => {
     const athleteData: Athlete = {
       ...data,
       id: athleteId,
     };
     mutation.mutate(athleteData);
-  };
+  }, [athleteId, mutation]);
 
-  return { editAthlete };
+  return { editAthlete, ...mutation };
 };
 
 export default useEditAthlete;

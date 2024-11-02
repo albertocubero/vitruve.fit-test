@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useDeleteAthlete } from '../hooks/useDeleteAthlete';
-import { useAthletes } from '../hooks/useAthletes';
 import AthleteTable from '../components/home/AthleteTable';
+import { useGetAthletes } from '../hooks/athlete/useGetAthletes';
+import { useDeleteAthlete } from '../hooks/athlete/useDeleteAthlete';
 
 const HomePage: React.FC = () => {
-  const { data, error: athleteError, isLoading: isAthleteLoading } = useAthletes();
+  const { data, error: athleteError, isLoading: isAthleteLoading } = useGetAthletes();
   const deleteAthleteMutation = useDeleteAthlete();
 
-  const handleDelete = (athleteId: string) => {
+  const handleDelete = useCallback((athleteId: string) => {
     deleteAthleteMutation.mutate(athleteId);
-  };
+  }, [deleteAthleteMutation]);
 
   return (
     <div>

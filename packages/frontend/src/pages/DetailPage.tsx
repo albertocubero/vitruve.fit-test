@@ -1,21 +1,17 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useAthlete } from '../hooks/useAthlete';
+import { useParams } from 'react-router-dom';
+import { useGetAthlete } from '../hooks/athlete/useGetAthlete';
 import AthleteDetail from '../components/detail/AthleteDetail';
 import LoadingErrorMessage from '../components/LoadingErrorMessage';
+import BackToHomeLink from '../components/BackToHomeLink';
 
 const DetailPage: React.FC = () => {
   const { athleteId } = useParams<{ athleteId: string }>();
-
-  const {
-    data: athlete,
-    error: athleteError,
-    isLoading: isAthleteLoading,
-  } = useAthlete(athleteId);
+  const { data: athlete, error: athleteError, isLoading: isAthleteLoading } = useGetAthlete(athleteId);
 
   return (
     <div>
-      <Link to={`/`}>Volver</Link>
+      <BackToHomeLink />
       <h1>Athlete Details: </h1>
       <LoadingErrorMessage isLoading={isAthleteLoading} error={athleteError?.message} />
       {athlete && <AthleteDetail athlete={athlete} />}
