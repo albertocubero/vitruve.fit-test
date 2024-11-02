@@ -1,46 +1,26 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import AthleteForm from '../components/AthleteForm';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { athleteService } from '../services/athleteService';
+import { Link, useParams } from 'react-router-dom';
 import { Athlete } from '../types/Athlete';
 import MetricsSection from '../components/edit/MetricsSection';
+import AthleteForm from '../components/form/AthleteForm';
+import { useAthlete } from '../hooks/useAthlete';
+import LoadingErrorMessage from '../components/LoadingErrorMessage';
+import useEditAthlete from '../hooks/useEditAthlete'; // Importa el nuevo hook
 
 const EditPage: React.FC = () => {
   const { athleteId } = useParams<{ athleteId: string }>();
-  const queryClient = useQueryClient();
-
-  const {
-    data: athlete,
-    error,
-    isLoading,
-  } = useQuery<Athlete, Error>(
-    ['athlete', athleteId],
-    () => athleteService.getAthlete(athleteId as string),
-    { enabled: !!athleteId }
-  );
-
-  const mutation = useMutation(athleteService.saveAthlete, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['athlete', athleteId]);
-    },
-  });
+  const { data: athlete, error: athleteError, isLoading: isAthleteLoading } = useAthlete(athleteId);
+  const { editAthlete } = useEditAthlete(athleteId);
 
   const onSubmit = (data: Athlete) => {
-    const athleteData: Athlete = {
-      ...data,
-      id: athleteId!,
-    };
-    mutation.mutate(athleteData);
+    editAthlete(data);
   };
-
-  if (isLoading) return <p>Loading athlete...</p>;
-  if (error) return <p>Error loading athlete</p>;
-  if (!athleteId) return <p>Error athlete Id not provided</p>;
 
   return (
     <div>
+      <Link to={`/`}>Volver</Link>
       <h1>Edit Athlete</h1>
+      <LoadingErrorMessage isLoading={isAthleteLoading} error={athleteError?.message} />
       <AthleteForm athlete={athlete} onSubmit={onSubmit} />
       <MetricsSection athleteId={athleteId} />
     </div>

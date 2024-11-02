@@ -1,22 +1,26 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAthlete } from '../hooks/useAthlete';
 import AthleteDetail from '../components/detail/AthleteDetail';
+import LoadingErrorMessage from '../components/LoadingErrorMessage';
 
 const DetailPage: React.FC = () => {
   const { athleteId } = useParams<{ athleteId: string }>();
 
   const {
     data: athlete,
-    error,
-    isLoading,
+    error: athleteError,
+    isLoading: isAthleteLoading,
   } = useAthlete(athleteId);
 
-  if (isLoading) return <p>Loading athlete details...</p>;
-  if (error) return <p>Error fetching athlete details</p>;
-  if (!athlete) return <p>No athlete found.</p>;
-
-  return <AthleteDetail athlete={athlete} />;
+  return (
+    <div>
+      <Link to={`/`}>Volver</Link>
+      <h1>Athlete Details: </h1>
+      <LoadingErrorMessage isLoading={isAthleteLoading} error={athleteError?.message} />
+      {athlete && <AthleteDetail athlete={athlete} />}
+    </div>
+  );
 };
 
 export { DetailPage };

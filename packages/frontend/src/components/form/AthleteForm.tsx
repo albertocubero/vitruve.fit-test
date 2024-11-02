@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Athlete } from '../types/Athlete';
-import FormInputField from './FormInputField';
 import * as Yup from 'yup';
+import { Athlete } from '../../types/Athlete';
+import FormInputField from './FormInputField';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),

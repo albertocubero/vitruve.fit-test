@@ -13,15 +13,15 @@ const MetricsSection: React.FC<MetricsSectionProps> = ({ athleteId }) => {
   const [metrics, setMetrics] = useState<Metric[]>([]);
   const { data: metricsData, error: metricsError, isLoading: isMetricsLoading } = useAthleteMetrics(athleteId);
 
+  const handleMetricAdded = useCallback((newMetric: Metric) => {
+    setMetrics((prevMetrics) => [...prevMetrics, newMetric]);
+  }, []);
+
   useEffect(() => {
     if (metricsData) {
       setMetrics(metricsData);
     }
   }, [metricsData]);
-
-  const handleMetricAdded = useCallback((newMetric: Metric) => {
-    setMetrics((prevMetrics) => [...prevMetrics, newMetric]);
-  }, []);
 
   return (
     <div>

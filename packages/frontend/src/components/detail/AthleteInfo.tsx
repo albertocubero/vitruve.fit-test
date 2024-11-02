@@ -7,7 +7,7 @@ interface AthleteInfoProps {
 
 const AthleteInfo: React.FC<AthleteInfoProps> = ({ athlete }) => (
   <div>
-    <h2>{athlete.name}</h2>
+    <h2>Name: {athlete.name}</h2>
     <p>Age: {athlete.age}</p>
     <p>Team: {athlete.team}</p>
   </div>

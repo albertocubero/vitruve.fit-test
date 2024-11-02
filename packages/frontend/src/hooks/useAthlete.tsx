@@ -5,6 +5,6 @@ import { athleteService } from '../services/athleteService';
 export const useAthlete = (athleteId: string) => {
   return useQuery<Athlete, Error>(
     ['athlete', athleteId],
-    () => athleteService.getAthlete(athleteId)
+    () => athleteService.getAthlete(athleteId),
   );
 };

@@ -1,27 +1,25 @@
 import React from 'react';
-import AthleteForm, { AthleteFormValues } from '../components/AthleteForm';
-import { useMutation, useQueryClient } from 'react-query';
-import { athleteService } from '../services/athleteService';
+import AthleteForm, { AthleteFormValues } from '../components/form/AthleteForm';
+import useCreateAthlete from '../hooks/useCreateAthlete';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 
-const NewPage: React.FC = () => {
-  const queryClient = useQueryClient();
+interface NewPageProps extends RouteComponentProps {}
 
-  const mutation = useMutation(athleteService.saveAthlete, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('athletes');
-    },
-  });
+const NewPageComponent: React.FC<NewPageProps> = ({ history }) => {
+  const { createAthlete } = useCreateAthlete();
 
   const onSubmit = (data: AthleteFormValues) => {
-    mutation.mutate(data);
+    createAthlete(data);
+    history.push('/');
   };
 
   return (
     <div>
+      <Link to={`/`}>Volver</Link>
       <h1>New Athlete</h1>
       <AthleteForm onSubmit={onSubmit} />
     </div>
   );
 };
 
-export { NewPage };
+export const NewPage = withRouter(NewPageComponent);

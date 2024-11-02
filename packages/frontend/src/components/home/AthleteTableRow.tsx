@@ -11,6 +11,6 @@ export const AthleteRow: React.FC<AthleteRowProps> = ({ athlete, onDelete }) => 
     <td>{athlete.name}</td>
     <td>{athlete.age}</td>
     <td>{athlete.team}</td>
-    <AthleteTableActions athleteId={athlete.id} onDelete={() => onDelete(athlete.id)} />
+    <AthleteTableActions athleteId={athlete.id!} onDelete={() => onDelete(athlete.id!)} />
   </tr>
 );
