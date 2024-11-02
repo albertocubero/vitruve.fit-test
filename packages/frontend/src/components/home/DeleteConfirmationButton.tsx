@@ -1,13 +1,16 @@
 import React from 'react';
+import { useDeleteAthlete } from '../../hooks/athlete/useDeleteAthlete';
 
 interface DeleteConfirmationButtonProps {
-  onConfirm: () => void;
+  athleteId: string;
 }
 
-const DeleteConfirmationButton: React.FC<DeleteConfirmationButtonProps> = ({ onConfirm }) => {
+const DeleteConfirmationButton: React.FC<DeleteConfirmationButtonProps> = ({ athleteId }) => {
+  const { deleteAthlete } = useDeleteAthlete();
+
   const handleClick = () => {
     if (window.confirm("Are you sure?")) {
-      onConfirm();
+      deleteAthlete(athleteId)
     }
   };
 

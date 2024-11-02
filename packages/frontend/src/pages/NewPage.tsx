@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import AthleteForm, { AthleteFormValues } from '../components/form/AthleteForm';
-import useCreateAthlete from '../hooks/athlete/useCreateAthlete';
 import BackToHomeLink from '../components/BackToHomeLink';
+import { useCreateAthlete } from '../hooks/athlete/useCreateAthlete';
 
 interface NewPageProps extends RouteComponentProps {}
 

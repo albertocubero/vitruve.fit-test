@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetAthlete } from '../hooks/athlete/useGetAthlete';
 import AthleteDetail from '../components/detail/AthleteDetail';
 import LoadingErrorMessage from '../components/LoadingErrorMessage';
 import BackToHomeLink from '../components/BackToHomeLink';
+import { useGetAthlete } from '../hooks/athlete/useGetAthlete';
 
 const DetailPage: React.FC = () => {
   const { athleteId } = useParams<{ athleteId: string }>();

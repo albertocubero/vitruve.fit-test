@@ -1,17 +1,15 @@
-import { useMutation, useQueryClient } from 'react-query';
 import { athleteService } from '../../services/athleteService';
+import { useAthleteMutation } from '../useAthleteMutation';
 
 export const useDeleteAthlete = () => {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation<void, Error, string>(athleteService.deleteAthlete, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('athletes');
-    },
-    onError: (error) => {
-      console.error('Error deleting athlete:', error);
-    },
+  const mutation = useAthleteMutation<void, string>({
+    mutationFn: athleteService.deleteAthlete,
+    invalidateQueriesOnSuccess: ['athletes'],
   });
 
-  return mutation;
+  const deleteAthlete = (athleteId: string) => {
+    mutation.mutate(athleteId);
+  };
+
+  return { deleteAthlete, ...mutation };
 };

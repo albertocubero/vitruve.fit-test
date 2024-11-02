@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import MetricList from '../metrics/MetricList';
-import AddMetricForm from '../metrics/AddMetricForm';
+import AddMetricForm from './AddMetricForm';
 import { Metric } from '../../types/Metric';
 import { useGetAthleteMetrics } from '../../hooks/metric/useGetAthleteMetrics';
 import LoadingErrorMessage from '../LoadingErrorMessage';

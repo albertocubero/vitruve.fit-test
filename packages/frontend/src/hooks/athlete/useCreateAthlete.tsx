@@ -1,18 +1,12 @@
-import { useMutation, useQueryClient } from 'react-query';
 import { athleteService } from '../../services/athleteService';
+import { useAthleteMutation } from '../useAthleteMutation';
 import { AthleteFormValues } from '../../components/form/AthleteForm';
 import { Athlete } from '../../types/Athlete';
 
-const useCreateAthlete = () => {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation<Athlete, Error, AthleteFormValues>(athleteService.saveAthlete, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('athletes');
-    },
-    onError: (error) => {
-      console.error('Error creating athlete:', error);
-    },
+export const useCreateAthlete = () => {
+  const mutation = useAthleteMutation<Athlete, AthleteFormValues>({
+    mutationFn: athleteService.saveAthlete,
+    invalidateQueriesOnSuccess: ['athletes'],
   });
 
   const createAthlete = (data: AthleteFormValues) => {
@@ -21,5 +15,3 @@ const useCreateAthlete = () => {
 
   return { createAthlete, ...mutation };
 };
-
-export default useCreateAthlete;

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Athlete } from '../../types/Athlete';
 import { Metric } from '../../types/Metric';
-import { useGetAthleteMetrics } from '../../hooks/metric/useGetAthleteMetrics';
 import AthleteInfo from './AthleteInfo';
 import LoadingErrorMessage from '../LoadingErrorMessage';
 import MetricList from '../metrics/MetricList';
+import { useGetAthleteMetrics } from '../../hooks/metric/useGetAthleteMetrics';
 
 interface AthleteDetailProps {
   athlete: Athlete;

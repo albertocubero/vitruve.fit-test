@@ -1,21 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import DeleteConfirmationButton from './DeleteConfirmationButton';
+import AthleteViewLink from './buttons/AthleteViewLink';
+import AthleteEditLink from './buttons/AthleteEditLink';
 
 interface AthleteActionsProps {
   athleteId: string;
-  onDelete: () => void;
 }
 
-const AthleteTableActions: React.FC<AthleteActionsProps> = ({
-  athleteId,
-  onDelete,
-}) => (
+const AthleteTableActions: React.FC<AthleteActionsProps> = ({ athleteId }) => (
   <td>
-    <Link to={`/athletes/${athleteId}`}>View</Link>
-    <Link to={`/athletes/edit/${athleteId}`}>Edit</Link>
-    <DeleteConfirmationButton onConfirm={onDelete} />
+    <AthleteViewLink athleteId={athleteId} />
+    <AthleteEditLink athleteId={athleteId} />
+    <DeleteConfirmationButton athleteId={athleteId}/>
   </td>
 );
 
-export default AthleteTableActions;
+export { AthleteTableActions };

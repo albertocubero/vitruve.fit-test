@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import ControlledInput from './MetricInput';
+import MetricInput from './MetricInput';
 import { Metric } from '../../types/Metric';
 import { athleteService } from '../../services/athleteService';
 
@@ -55,20 +55,20 @@ const AddMetricForm: React.FC<AddMetricFormProps> = React.memo(({ athleteId, onM
     <>
       <h3>Add Metric</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ControlledInput
+        <MetricInput
           name="metricType"
           control={control}
           label="Metric Type"
           error={errors.metricType?.message}
         />
-        <ControlledInput
+        <MetricInput
           name="value"
           control={control}
           label="Value"
           type="number"
           error={errors.value?.message}
         />
-        <ControlledInput
+        <MetricInput
           name="unit"
           control={control}
           label="Unit"
