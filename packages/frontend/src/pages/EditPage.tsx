@@ -18,13 +18,13 @@ const EditPage: React.FC = () => {
   }, [editAthlete]);
 
   return (
-    <div>
+    <>
       <BackToHomeLink />
       <h1>Edit Athlete</h1>
       <LoadingErrorMessage isLoading={isAthleteLoading} error={athleteError?.message} />
       {athlete && <AthleteForm athlete={athlete} onSubmit={onSubmit} />}
       {athlete && <MetricsSection athleteId={athleteId} />}
-    </div>
+    </>
   );
 };
 

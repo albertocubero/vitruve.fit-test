@@ -11,8 +11,9 @@ const LoadingErrorMessage: React.FC<LoadingErrorMessageProps> = React.memo(
     if (error) return <p style={{ color: 'red' }}>Error: {error}</p>;
     return null;
   },
-  (prevProps, nextProps) => 
-    prevProps.isLoading === nextProps.isLoading && prevProps.error === nextProps.error
+  (prevProps, nextProps) =>
+    prevProps.isLoading === nextProps.isLoading &&
+    prevProps.error === nextProps.error
 );
 
 export default LoadingErrorMessage;

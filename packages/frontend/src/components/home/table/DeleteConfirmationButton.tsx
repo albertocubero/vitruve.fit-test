@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDeleteAthlete } from '../../hooks/athlete/useDeleteAthlete';
+import { useDeleteAthlete } from '../../../hooks/athlete/useDeleteAthlete';
 
 interface DeleteConfirmationButtonProps {
   athleteId: string;

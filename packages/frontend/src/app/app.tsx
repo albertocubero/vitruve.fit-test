@@ -1,4 +1,3 @@
-// src/App.tsx
 import React from 'react';
 import { IonApp } from '@ionic/react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';

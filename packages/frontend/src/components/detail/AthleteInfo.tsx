@@ -6,11 +6,11 @@ interface AthleteInfoProps {
 }
 
 const AthleteInfo: React.FC<AthleteInfoProps> = ({ athlete }) => (
-  <div>
+  <>
     <h2>Name: {athlete.name}</h2>
     <p>Age: {athlete.age}</p>
     <p>Team: {athlete.team}</p>
-  </div>
+  </>
 );
 
 export default AthleteInfo;

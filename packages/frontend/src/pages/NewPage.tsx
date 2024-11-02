@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import AthleteForm, { AthleteFormValues } from '../components/form/AthleteForm';
+import AthleteForm from '../components/form/AthleteForm';
 import BackToHomeLink from '../components/BackToHomeLink';
 import { useCreateAthlete } from '../hooks/athlete/useCreateAthlete';
+import { AthleteFormValues } from '../types/AthleteFormValues';
 
 interface NewPageProps extends RouteComponentProps {}
 
@@ -22,13 +23,12 @@ const NewPageComponent: React.FC<NewPageProps> = ({ history }) => {
   );
 
   return (
-    <div>
+    <>
       <BackToHomeLink />
       <h1>New Athlete</h1>
       <AthleteForm onSubmit={onSubmit} />
-    </div>
+    </>
   );
 };
 
-// Componente memoizado para evitar re-renderizados innecesarios
 export const NewPage = React.memo(withRouter(NewPageComponent));

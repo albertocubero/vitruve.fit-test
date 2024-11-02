@@ -10,7 +10,7 @@ interface FormInputFieldProps {
 }
 
 const FormInputField: React.FC<FormInputFieldProps> = ({ label, name, control, error, type = "text" }) => (
-  <div>
+  <>
     <label>{label}</label>
     <Controller
       name={name}
@@ -22,7 +22,7 @@ const FormInputField: React.FC<FormInputFieldProps> = ({ label, name, control, e
         </>
       )}
     />
-  </div>
+  </>
 );
 
 export default FormInputField;

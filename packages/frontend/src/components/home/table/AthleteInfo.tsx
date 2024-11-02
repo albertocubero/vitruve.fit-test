@@ -1,5 +1,5 @@
 import React from 'react';
-import { Athlete } from '../../types/Athlete';
+import { Athlete } from '../../../types/Athlete';
 
 interface AthleteInfoProps {
   athlete: Athlete;

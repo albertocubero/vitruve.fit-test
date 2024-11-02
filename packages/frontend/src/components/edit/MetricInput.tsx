@@ -19,22 +19,16 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
   defaultValue = '',
 }) => {
   return (
-    <div>
+    <>
       <label htmlFor={name}>{label}</label>
       <Controller
         name={name}
         control={control}
         defaultValue={defaultValue}
-        render={({ field }) => (
-          <input
-            id={name}
-            type={type}
-            {...field}
-          />
-        )}
+        render={({ field }) => <input id={name} type={type} {...field} />}
       />
       {error && <p style={{ color: 'red' }}>{error}</p>}
-    </div>
+    </>
   );
 };
 

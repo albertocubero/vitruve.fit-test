@@ -12,11 +12,11 @@ const AthleteDetail: React.FC<AthleteDetailProps> = React.memo(({ athleteId }) =
   const { data: athlete, error: athleteError, isLoading: isAthleteLoading } = useGetAthlete(athleteId);
   
   return (
-    <div>
+    <>
       <LoadingErrorMessage isLoading={isAthleteLoading} error={athleteError?.message} />
       {athlete && <AthleteInfo athlete={athlete} />}
       {athlete && <AthleteMetrics athleteId={athlete.id!} />}
-    </div>
+    </>
   );
 });
 

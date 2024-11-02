@@ -1,4 +1,4 @@
-import { Athlete } from '../../types/Athlete';
+import { Athlete } from '../../../types/Athlete';
 import AthleteInfo from './AthleteInfo';
 import { AthleteTableActions } from './AthleteTableActions';
 

@@ -4,32 +4,47 @@ import { type Metric } from '../types/Metric';
 
 const API_URL = 'http://localhost:3000/api/v1/athletes';
 
+const apiClient = axios.create({
+  baseURL: API_URL,
+});
+
+apiClient.interceptors.response.use(
+  response => response,
+  error => {
+    console.error('API call error:', error);
+    return Promise.reject(error);
+  }
+);
+
 export const athleteService = {
   getAthletes: async (): Promise<Athlete[]> => {
-    const response = await axios.get(API_URL);
-    return response.data;
+    const { data } = await apiClient.get('');
+    return data;
   },
+  
   getAthlete: async (id: string): Promise<Athlete> => {
-    const response = await axios.get(`${API_URL}/${id}`);
-    return response.data;
+    const { data } = await apiClient.get(`/${id}`);
+    return data;
   },
+  
   saveAthlete: async (athlete: Athlete): Promise<Athlete> => {
-    if (athlete.id) {
-      const response = await axios.put(`${API_URL}/${athlete.id}`, athlete);
-      return response.data;
-    }
-    const response = await axios.post(API_URL, athlete);
-    return response.data;
+    const method = athlete.id ? 'put' : 'post';
+    const athleteUrl = athlete.id ? `/${athlete.id}` : '';
+    const { data } = await apiClient[method](athleteUrl, athlete);
+    return data;
   },
+  
   deleteAthlete: async (id: string): Promise<void> => {
-    await axios.delete(`${API_URL}/${id}`);
+    await apiClient.delete(`/${id}`);
   },
+  
   getMetrics: async (athleteId: string): Promise<Metric[]> => {
-    const response = await axios.get(`${API_URL}/${athleteId}/metrics`);
-    return response.data;
+    const { data } = await apiClient.get(`/${athleteId}/metrics`);
+    return data;
   },
+  
   addMetric: async (metric: Metric): Promise<Metric> => {
-    const response = await axios.post(`${API_URL}/${metric.athleteId}/metrics`, metric);
-    return response.data;
+    const { data } = await apiClient.post(`/${metric.athleteId}/metrics`, metric);
+    return data;
   },
 };

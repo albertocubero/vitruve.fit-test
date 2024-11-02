@@ -4,18 +4,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Athlete } from '../../types/Athlete';
 import FormInputField from './FormInputField';
+import { AthleteFormValues } from '../../types/AthleteFormValues';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
   age: Yup.number().required('Age is required').positive().integer().min(1, 'Age must be at least 1'),
   team: Yup.string().required('Team is required'),
 });
-
-export interface AthleteFormValues {
-  name: string;
-  age: number;
-  team: string;
-}
 
 interface AthleteFormProps {
   athlete?: Athlete;

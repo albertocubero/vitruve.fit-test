@@ -14,7 +14,11 @@ const AthleteMetrics: React.FC<AthleteMetricsProps> = ({ athleteId }) => {
     <>
       <h3>Metrics</h3>
       <LoadingErrorMessage isLoading={isMetricsLoading} error={metricsError?.message} />
-      {metrics && <MetricList metrics={metrics} />}
+      {metrics && metrics.length > 0 ? (
+        <MetricList metrics={metrics} />
+      ) : (
+        <div>There are no metrics.</div>
+      )}
     </>
   );
 };

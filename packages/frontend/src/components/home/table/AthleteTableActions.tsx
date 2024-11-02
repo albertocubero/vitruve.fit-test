@@ -1,7 +1,7 @@
 import React from 'react';
 import DeleteConfirmationButton from './DeleteConfirmationButton';
-import AthleteViewLink from './buttons/AthleteViewLink';
-import AthleteEditLink from './buttons/AthleteEditLink';
+import AthleteViewLink from '../buttons/AthleteViewLink';
+import AthleteEditLink from '../buttons/AthleteEditLink';
 
 interface AthleteActionsProps {
   athleteId: string;

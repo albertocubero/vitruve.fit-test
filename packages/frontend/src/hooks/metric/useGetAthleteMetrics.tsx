@@ -1,4 +1,3 @@
-// hooks/useGetAthleteMetrics.ts
 import { useQuery } from 'react-query';
 import { athleteService } from '../../services/athleteService';
 import { Metric } from '../../types/Metric';

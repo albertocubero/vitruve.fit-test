@@ -7,11 +7,11 @@ const DetailPage: React.FC = () => {
   const { athleteId } = useParams<{ athleteId: string }>();
   
   return (
-    <div>
+    <>
       <BackToHomeLink />
       <h1>Athlete Details: </h1>
       <AthleteDetail athleteId={athleteId} />
-    </div>
+    </>
   );
 };
 

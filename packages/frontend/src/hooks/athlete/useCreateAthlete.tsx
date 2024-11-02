@@ -1,7 +1,7 @@
 import { athleteService } from '../../services/athleteService';
 import { useAthleteMutation } from '../useAthleteMutation';
-import { AthleteFormValues } from '../../components/form/AthleteForm';
 import { Athlete } from '../../types/Athlete';
+import { AthleteFormValues } from '../../types/AthleteFormValues';
 
 export const useCreateAthlete = () => {
   const mutation = useAthleteMutation<Athlete, AthleteFormValues>({
