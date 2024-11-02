@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Athlete } from '../types/Athlete';
+import FormInputField from './FormInputField';
+import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -35,45 +36,9 @@ const AthleteForm: React.FC<AthleteFormProps> = ({ athlete, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Name</label>
-        <Controller
-          name="name"
-          control={control}
-          render={({ field }) => (
-            <>
-              <input {...field} />
-              {errors.name && <p style={{ color: 'red' }}>{errors.name.message}</p>}
-            </>
-          )}
-        />
-      </div>
-      <div>
-        <label>Age</label>
-        <Controller
-          name="age"
-          control={control}
-          render={({ field }) => (
-            <>
-              <input type="number" {...field} />
-              {errors.age && <p style={{ color: 'red' }}>{errors.age.message}</p>}
-            </>
-          )}
-        />
-      </div>
-      <div>
-        <label>Team</label>
-        <Controller
-          name="team"
-          control={control}
-          render={({ field }) => (
-            <>
-              <input {...field} />
-              {errors.team && <p style={{ color: 'red' }}>{errors.team.message}</p>}
-            </>
-          )}
-        />
-      </div>
+      <FormInputField label="Name" name="name" control={control} error={errors.name?.message} />
+      <FormInputField label="Age" name="age" control={control} error={errors.age?.message} type="number" />
+      <FormInputField label="Team" name="team" control={control} error={errors.team?.message} />
       <button type="submit">Save Athlete</button>
     </form>
   );

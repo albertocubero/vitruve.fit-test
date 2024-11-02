@@ -1,16 +1,15 @@
-// src/components/MetricForm.tsx
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { athleteService } from '../services/athleteService';
-
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Metric } from '../types/Metric';
+import { athleteService } from '../../services/athleteService';
+import { Metric } from '../../types/Metric';
 
 const validationSchema = Yup.object().shape({
+  athleteId: Yup.string().required('Athlete ID is required'), // Agrega esta línea
   metricType: Yup.string().required('Metric type is required'),
-  value: Yup.number().required('Value is required'),
+  value: Yup.number().required('Value is required').positive('Value must be positive'),
   unit: Yup.string().required('Unit is required'),
   timestamp: Yup.date().required('Timestamp is required'),
 });
@@ -57,14 +56,6 @@ const MetricForm: React.FC<{ athleteId: string }> = ({ athleteId }) => {
           name="unit"
           control={control}
           render={({ field }) => <input {...field} />}
-        />
-      </div>
-      <div>
-        <label>Timestamp</label>
-        <Controller
-          name="timestamp"
-          control={control}
-          render={({ field }) => <input type="datetime-local" {...field} />}
         />
       </div>
       <button type="submit">Add Metric</button>

@@ -1,5 +1,5 @@
 export interface Metric {
-    id: string;
+    id?: string;
     athleteId: string;
     metricType: string;
     value: number;

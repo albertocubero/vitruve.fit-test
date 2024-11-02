@@ -24,7 +24,12 @@ export const athleteService = {
   deleteAthlete: async (id: string): Promise<void> => {
     await axios.delete(`${API_URL}/${id}`);
   },
+  getMetrics: async (athleteId: string): Promise<Metric[]> => {
+    const response = await axios.get(`${API_URL}/${athleteId}/metrics`);
+    return response.data;
+  },
   addMetric: async (metric: Metric): Promise<Metric> => {
-    return await axios.post(`${API_URL}/${metric.athleteId}/metrics`, metric);
+    const response = await axios.post(`${API_URL}/${metric.athleteId}/metrics`, metric);
+    return response.data;
   },
 };
