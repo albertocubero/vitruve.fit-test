@@ -5,10 +5,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import MetricInput from './MetricInput';
 import { Metric } from '../../types/Metric';
 import { athleteService } from '../../services/athleteService';
+import { useAddAthleteMetrics } from '../../hooks/metric/useAddAthleteMetrics';
 
 interface AddMetricFormProps {
   athleteId: string;
-  onMetricAdded: (metric: Metric) => void;
 }
 
 interface MetricFormValues {
@@ -26,7 +26,9 @@ const validationSchema = Yup.object().shape({
   unit: Yup.string().required('Unit is required'),
 });
 
-const AddMetricForm: React.FC<AddMetricFormProps> = React.memo(({ athleteId, onMetricAdded }) => {
+const AddMetricForm: React.FC<AddMetricFormProps> = React.memo(({ athleteId }) => {
+  const { addMetric } = useAddAthleteMetrics();
+
   const { control, handleSubmit, reset, formState: { errors } } = useForm<MetricFormValues>({
     defaultValues: { metricType: '', value: 0, unit: '' },
     resolver: yupResolver(validationSchema),
@@ -43,13 +45,13 @@ const AddMetricForm: React.FC<AddMetricFormProps> = React.memo(({ athleteId, onM
     };
 
     try {
-      const addedMetric = await athleteService.addMetric(newMetric);
-      onMetricAdded(addedMetric);
+      const metricToAdd = await athleteService.addMetric(newMetric);
+      addMetric(metricToAdd)
       reset();
     } catch (error) {
       console.error('Failed to add metric:', error);
     }
-  }, [athleteId, onMetricAdded, reset]);
+  }, [athleteId, reset]);
 
   return (
     <>

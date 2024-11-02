@@ -4,7 +4,7 @@ import { useAthleteMutation } from '../useAthleteMutation';
 export const useDeleteAthlete = () => {
   const mutation = useAthleteMutation<void, string>({
     mutationFn: athleteService.deleteAthlete,
-    invalidateQueriesOnSuccess: ['athletes'],
+    invalidateQueries: ['athletes'],
   });
 
   const deleteAthlete = (athleteId: string) => {

@@ -6,7 +6,7 @@ import { Athlete } from '../../types/Athlete';
 export const useCreateAthlete = () => {
   const mutation = useAthleteMutation<Athlete, AthleteFormValues>({
     mutationFn: athleteService.saveAthlete,
-    invalidateQueriesOnSuccess: ['athletes'],
+    invalidateQueries: ['athletes'],
   });
 
   const createAthlete = (data: AthleteFormValues) => {

@@ -6,7 +6,7 @@ import { useAthleteMutation } from '../useAthleteMutation';
 export const useEditAthlete = (athleteId: string) => {
   const mutation = useAthleteMutation<Athlete, Athlete>({
     mutationFn: athleteService.saveAthlete,
-    invalidateQueriesOnSuccess: [['athlete', athleteId], 'athletes'],
+    invalidateQueries: [['athlete', athleteId], 'athletes'],
   });
 
   const editAthlete = useCallback(

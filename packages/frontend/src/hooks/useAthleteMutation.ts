@@ -4,19 +4,19 @@ type InvalidateQueryKey = string | QueryKey;
 
 interface UseAthleteMutationParams<TData, TVariables> {
     mutationFn: (data: TVariables) => Promise<TData>;
-    invalidateQueriesOnSuccess?: InvalidateQueryKey[];
+    invalidateQueries?: InvalidateQueryKey[];
 }
 
 export const useAthleteMutation = <TData, TVariables>({
     mutationFn,
-    invalidateQueriesOnSuccess = [],
+    invalidateQueries = [],
   }: UseAthleteMutationParams<TData, TVariables>) => {
   
   const queryClient = useQueryClient();
 
   return useMutation<TData, Error, TVariables>(mutationFn, {
     onSuccess: () => {
-      invalidateQueriesOnSuccess.forEach(query => queryClient.invalidateQueries(query as QueryKey));
+      invalidateQueries.forEach(query => queryClient.invalidateQueries(query as QueryKey));
     },
     onError: (error) => {
       console.error('Mutation error:', error);

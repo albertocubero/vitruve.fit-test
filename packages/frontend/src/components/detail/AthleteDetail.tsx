@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Athlete } from '../../types/Athlete';
-import { Metric } from '../../types/Metric';
+import React from 'react';
 import AthleteInfo from './AthleteInfo';
+import AthleteMetrics from './AthleteMetrics';
 import LoadingErrorMessage from '../LoadingErrorMessage';
-import MetricList from '../metrics/MetricList';
-import { useGetAthleteMetrics } from '../../hooks/metric/useGetAthleteMetrics';
+import { useGetAthlete } from '../../hooks/athlete/useGetAthlete';
 
 interface AthleteDetailProps {
-  athlete: Athlete;
+  athleteId: string
 }
 
-const AthleteDetail: React.FC<AthleteDetailProps> = React.memo(({ athlete }) => {
-  const [metrics, setMetrics] = useState<Metric[]>([]);
-  const { data: metricsData, error: metricsError, isLoading: isMetricsLoading } = useGetAthleteMetrics(athlete.id!);
-
-  useEffect(() => {
-    if (metricsData) {
-      setMetrics(metricsData);
-    }
-  }, [metricsData]);
-
+const AthleteDetail: React.FC<AthleteDetailProps> = React.memo(({ athleteId }) => {
+  const { data: athlete, error: athleteError, isLoading: isAthleteLoading } = useGetAthlete(athleteId);
+  
   return (
     <div>
-      <AthleteInfo athlete={athlete} />
-      <LoadingErrorMessage isLoading={isMetricsLoading} error={metricsError?.message} />
-      <MetricList metrics={metrics} />
+      <LoadingErrorMessage isLoading={isAthleteLoading} error={athleteError?.message} />
+      {athlete && <AthleteInfo athlete={athlete} />}
+      {athlete && <AthleteMetrics athleteId={athlete.id!} />}
     </div>
   );
 });
