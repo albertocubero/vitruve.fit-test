@@ -1,10 +1,10 @@
 import React from 'react';
 import { IonApp } from '@ionic/react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { HomePage } from '../pages/HomePage';
-import { NewPage } from '../pages/NewPage';
-import { EditPage } from '../pages/EditPage';
-import { DetailPage } from '../pages/DetailPage';
+import { HomePage } from '../DDD/ui/pages/HomePage';
+import { NewPage } from '../DDD/ui/pages/NewPage';
+import { EditPage } from '../DDD/ui/pages/EditPage';
+import { DetailPage } from '../DDD/ui/pages/DetailPage';
 
 const App: React.FC = () => (
   <IonApp>

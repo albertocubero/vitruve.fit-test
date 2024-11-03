@@ -116,5 +116,8 @@ PENDIENTE:
 - Revisar gestion de errores
 - pagina 404
 - DDD Hexagonal
+    - casos de uso: comporbar si captura bien los errores
+
+
 - Diseño: https://merakiui.com/
     - Table: https://merakiui.com/components/application-ui/tables 
