@@ -1,6 +1,6 @@
 import React from 'react';
 import { AthleteRow } from './AthleteTableRow';
-import { IAthlete } from '../../../domain/types/IAthlete';
+import { IAthlete } from '../../../../domain/types/IAthlete';
 import AthleteTableHeaderRow from './AthleteTableHeaderRow';
 
 interface AthleteTableProps {

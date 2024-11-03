@@ -1,4 +1,4 @@
-import { IAthlete } from '../../../domain/types/IAthlete';
+import { IAthlete } from '../../../../domain/types/IAthlete';
 import AthleteInfo from './AthleteInfo';
 import { AthleteTableActions } from './AthleteTableActions';
 

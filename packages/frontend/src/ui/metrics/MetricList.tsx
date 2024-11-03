@@ -1,5 +1,5 @@
 import React from 'react';
-import { IMetric } from '../../domain/types/IMetric';
+import { IMetric } from '../../../domain/types/IMetric';
 
 interface MetricListProps {
   metrics: IMetric[];

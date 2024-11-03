@@ -89,20 +89,12 @@ PETICIONES
 
 
 
-
-
-
-- Repasar mensajes de error
-- Typescript
-- Tests
-
-
 Backend
 - JWT-based authentication system
 - Redis
-- Testing (Jest)
-
-
+- Repasar mensajes de error
+- Typescript
+- Tests
 
 
 

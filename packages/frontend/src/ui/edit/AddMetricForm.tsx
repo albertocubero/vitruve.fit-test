@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import MetricInput from './MetricInput';
-import { IMetric } from '../../domain/types/IMetric';
+import { IMetric } from '../../../domain/types/IMetric';
 import { useAddAthleteMetrics } from '../hooks/metric/useAddAthleteMetrics';
 
 interface AddMetricFormProps {

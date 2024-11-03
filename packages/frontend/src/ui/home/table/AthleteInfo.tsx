@@ -1,5 +1,5 @@
 import React from 'react';
-import { IAthlete } from '../../../domain/types/IAthlete';
+import { IAthlete } from '../../../../domain/types/IAthlete';
 
 interface AthleteInfoProps {
   athlete: IAthlete;

@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import FormInputField from './FormInputField';
 
-import { IAthlete } from '../../domain/types/IAthlete';
+import { IAthlete } from '../../../domain/types/IAthlete';
 import { IAthleteFormValues } from '../types/IAthleteFormValues';
 
 const validationSchema = Yup.object().shape({
