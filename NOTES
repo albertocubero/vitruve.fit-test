@@ -1,13 +1,16 @@
+README
+- Nx como global
+
+
+
 postgresql
 ==========
 bbdd: performance-tracker
 user: alberto
 pass:
 
-
 PostgreSQL Abrir consola:
 # psql postgres
-
 
 PostgreSQL - Conectar
 # psql -U alberto -d performance-tracker
@@ -33,8 +36,9 @@ NX - Backend
 CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
 # kill $(ps aux | grep nx | awk '{print $2}')
 
-
-
+PENDIENTE
+- bbdd: hacer copia seguridad (package script)
+- bbdd: restaurar copia seguridad (package script)
 
 
 
@@ -114,10 +118,7 @@ CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
 
 PENDIENTE:
 - Revisar gestion de errores
-- pagina 404
 - DDD Hexagonal
-    - casos de uso: comporbar si captura bien los errores
-
-
 - Diseño: https://merakiui.com/
     - Table: https://merakiui.com/components/application-ui/tables 
+    - pagina 404
