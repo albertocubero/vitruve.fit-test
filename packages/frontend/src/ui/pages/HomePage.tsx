@@ -1,16 +1,17 @@
 import React from 'react';
 import AddNewAthleteLink from '../home/buttons/AddNewAthleteLink';
 import { AthleteList } from '../home/AthleteList';
-
-// import { CustomerTable, Customer } from '../customTable';
+import { HomePageLayout } from '../layout/HomePageLayout';
 
 const HomePage: React.FC = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Athletes</h1>
-      <AddNewAthleteLink />
-      <AthleteList />
-    </>
+    <HomePageLayout>
+      <>
+        <h1 className="text-3xl font-bold underline">Athletes</h1>
+        <AddNewAthleteLink />
+        <AthleteList />
+      </>
+    </HomePageLayout>
   );
 };
 
