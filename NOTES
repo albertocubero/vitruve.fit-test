@@ -110,3 +110,11 @@ NX - FRONTEND
 
 CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
 # kill $(ps aux | grep nx | awk '{print $2}')
+
+
+PENDIENTE:
+- Revisar gestion de errores
+- pagina 404
+- DDD Hexagonal
+- Diseño: https://merakiui.com/
+    - Table: https://merakiui.com/components/application-ui/tables 

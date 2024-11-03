@@ -47,3 +47,6 @@ error.log
 
 # Prisma
 **/prisma/**/*.sql
+## Panda
+styled-system
+styled-system-studio
