@@ -1,6 +1,5 @@
 import React from 'react';
 import DeleteConfirmationButton from './DeleteConfirmationButton';
-import AthleteViewLink from '../buttons/AthleteViewLink';
 import AthleteEditLink from '../buttons/AthleteEditLink';
 
 interface AthleteActionsProps {
@@ -8,11 +7,10 @@ interface AthleteActionsProps {
 }
 
 const AthleteTableActions: React.FC<AthleteActionsProps> = ({ athleteId }) => (
-  <td>
-    <AthleteViewLink athleteId={athleteId} />
+  <div className="px-4 py-3 text-sm whitespace-nowrap w-1/4 text-right">
     <AthleteEditLink athleteId={athleteId} />
     <DeleteConfirmationButton athleteId={athleteId}/>
-  </td>
+  </div>
 );
 
 export { AthleteTableActions };

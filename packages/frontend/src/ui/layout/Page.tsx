@@ -48,7 +48,7 @@ export const PageLayout: React.FC<PageProps> = ({
               description={description}
             />
           </div>
-          <div className="lg:w-2/3 py-6 md:py-0 w-full">{children}</div>
+          <div className="lg:w-2/3 py-6 lg:py-0 w-full">{children}</div>
         </div>
       </div>
     </div>

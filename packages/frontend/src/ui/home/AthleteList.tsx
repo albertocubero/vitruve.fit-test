@@ -17,7 +17,7 @@ const AthleteList: React.FC = () => {
         isLoading={isAthletesLoading}
         error={athletesError?.message}
       />
-      {athletes && <AthleteTable athletes={athletes} />}
+      {athletes && athletes.length && <AthleteTable athletes={athletes} />}
       {athletes && athletes.length === 0 && <p>No athletes found.</p>}
     </>
   );

@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-
 import BackToHomeLink from '../common/BackToHomeLink';
 import { IAthleteFormValues } from '../types/IAthleteFormValues';
 import { useCreateAthlete } from '../hooks/athlete/useCreateAthlete';

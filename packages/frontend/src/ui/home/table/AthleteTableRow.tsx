@@ -1,4 +1,4 @@
-import { IAthlete } from '../../../../domain/types/IAthlete';
+import { IAthlete } from '../../../domain/types/IAthlete';
 import AthleteInfo from './AthleteInfo';
 import { AthleteTableActions } from './AthleteTableActions';
 
@@ -8,9 +8,9 @@ interface AthleteRowProps {
 
 export const AthleteRow: React.FC<AthleteRowProps> = ({ athlete }) => {
   return (
-    <tr>
+    <div className="flex text-sm font-medium border-b border-gray-200 dark:border-gray-700">
       <AthleteInfo athlete={athlete} />
       <AthleteTableActions athleteId={athlete.id!} />
-    </tr>
+    </div>
   );
 };
