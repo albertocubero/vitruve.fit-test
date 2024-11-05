@@ -40,15 +40,15 @@ export const PageLayout: React.FC<PageProps> = ({
           </nav>
         </header>
 
-        <div className="flex flex-col py-6 lg:h-[36rem] lg:flex-row lg:gap-x-16 mt-8 mx-20">
-          <div className="lg:w-1/3">
+        <div className="flex flex-col md:py-6 lg:h-[36rem] lg:flex-row lg:gap-x-16 mt-8 md:mx-20 mx-6">
+          <div className="lg:w-1/3 w-full">
             <InfoSection
               title={title}
               subTitle={subTitle}
               description={description}
             />
           </div>
-          <div className="lg:w-2/2">{children}</div>
+          <div className="lg:w-2/3 py-6 md:py-0 w-full">{children}</div>
         </div>
       </div>
     </div>
