@@ -4,19 +4,15 @@ import { useGetAthletes } from '../hooks/athlete/useGetAthletes';
 import AthleteEmptyTable from './table/AthleteEmptyTable';
 import CreateAthleteButton from './table/CreateAthleteButton';
 import { AthleteCount } from './table/AthleteCount';
+import ErrorMessage from '../common/ErrorMessage';
+import Loading from '../common/Loading';
 
 const AthleteList: React.FC = () => {
   const {
     data: athletes,
-    // error: athletesError,
-    // isLoading: isAthletesLoading,
+    error: athletesError,
+    isLoading: isAthletesLoading,
   } = useGetAthletes();
-
-  // <>
-  //   <LoadingErrorMessage
-  //     isLoading={isAthletesLoading}
-  //     error={athletesError?.message}
-  //   />
 
   return (
     <div className="w-full">
@@ -30,8 +26,10 @@ const AthleteList: React.FC = () => {
           <CreateAthleteButton />
         </div>
       </div>
+      {isAthletesLoading && <Loading />}
       {athletes && athletes.length > 0 && <AthleteTable athletes={athletes} />}
       {athletes && athletes.length === 0 && <AthleteEmptyTable />}
+      {athletesError && <ErrorMessage message={athletesError?.message} />}
     </div>
   );
 };
