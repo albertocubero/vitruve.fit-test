@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import MetricInput from './MetricInput';
-import { useAddAthleteMetrics } from '../hooks/metric/useAddAthleteMetrics';
-import { IMetric } from '../../domain/types/IMetric';
-import SuccessMessage from '../common/SuccessMessage';
-import ErrorMessage from '../common/ErrorMessage';
+import { useAddAthleteMetrics } from '../../hooks/metric/useAddAthleteMetrics';
+import { IMetric } from '../../../domain/types/IMetric';
+import SuccessMessage from '../../common/SuccessMessage';
+import ErrorMessage from '../../common/ErrorMessage';
 
 interface AddMetricFormProps {
   athleteId: string;

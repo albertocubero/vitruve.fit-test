@@ -1,6 +1,6 @@
 import React from 'react';
-import AthleteInfo from './AthleteInfo';
-import AthleteMetrics from './AthleteMetrics';
+import AthleteInfo from './sections/AthleteInfo';
+import AthleteMetrics from './sections/AthleteMetrics';
 import { useGetAthlete } from '../hooks/athlete/useGetAthlete';
 import DetailPageHeader from './DetailPageHeader';
 import ErrorMessage from '../common/ErrorMessage';

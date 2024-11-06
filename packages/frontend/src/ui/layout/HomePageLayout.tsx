@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { PageLayout } from './Page';
+import { PageLayout } from './sections/Page';
 
 interface CustomPageProps {
   children?: ReactNode;

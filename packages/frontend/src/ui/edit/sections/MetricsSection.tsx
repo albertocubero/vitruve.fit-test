@@ -1,9 +1,9 @@
 import React from 'react';
-import MetricList from '../metrics/MetricList';
+import MetricList from '../../metrics/MetricList';
 import AddMetricForm from './AddMetricForm';
-import { useGetAthleteMetrics } from '../hooks/metric/useGetAthleteMetrics';
-import Loading from '../common/Loading';
-import ErrorMessage from '../common/ErrorMessage';
+import { useGetAthleteMetrics } from '../../hooks/metric/useGetAthleteMetrics';
+import Loading from '../../common/Loading';
+import ErrorMessage from '../../common/ErrorMessage';
 
 interface MetricsSectionProps {
   athleteId: string;

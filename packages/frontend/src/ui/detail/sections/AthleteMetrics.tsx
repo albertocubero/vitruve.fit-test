@@ -1,8 +1,8 @@
 import React from 'react';
-import MetricList from '../metrics/MetricList';
-import { useGetAthleteMetrics } from '../hooks/metric/useGetAthleteMetrics';
-import Loading from '../common/Loading';
-import ErrorMessage from '../common/ErrorMessage';
+import MetricList from '../../metrics/MetricList';
+import { useGetAthleteMetrics } from '../../hooks/metric/useGetAthleteMetrics';
+import Loading from '../../common/Loading';
+import ErrorMessage from '../../common/ErrorMessage';
 import AthleteMetricsEmpty from './AthleteMetricsEmpty';
 
 interface AthleteMetricsProps {
@@ -10,7 +10,11 @@ interface AthleteMetricsProps {
 }
 
 const AthleteMetrics: React.FC<AthleteMetricsProps> = ({ athleteId }) => {
-  const { data: metrics, error: metricsError, isLoading: isMetricsLoading } = useGetAthleteMetrics(athleteId);
+  const {
+    data: metrics,
+    error: metricsError,
+    isLoading: isMetricsLoading,
+  } = useGetAthleteMetrics(athleteId);
 
   return (
     <div className="py-6">
@@ -21,13 +25,13 @@ const AthleteMetrics: React.FC<AthleteMetricsProps> = ({ athleteId }) => {
       </div>
       {isMetricsLoading && <Loading />}
       <div className="mt-6">
-      {metrics && metrics.length > 0 ? (
-        <MetricList metrics={metrics} />
-      ) : (
-        <AthleteMetricsEmpty />
-      )}
+        {metrics && metrics.length > 0 ? (
+          <MetricList metrics={metrics} />
+        ) : (
+          <AthleteMetricsEmpty />
+        )}
       </div>
-      {metricsError && <ErrorMessage message={metricsError?.message} />}  
+      {metricsError && <ErrorMessage message={metricsError?.message} />}
     </div>
   );
 };

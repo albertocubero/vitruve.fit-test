@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
-import { Logo } from './Logo';
+import { Logo } from '../Logo';
 import {
   GitHubHighLightButton,
   LinkedInHighLightButton,
   VitruveFitButton,
 } from './Buttons';
-import InfoSection from './InfoSection';
+import InfoSection from '../InfoSection';
 
 interface PageProps {
   children?: ReactNode;
@@ -30,7 +30,7 @@ export const PageLayout: React.FC<PageProps> = ({
       }}
     >
       <div className="px-6">
-        <header className="flex flex-col py-6 sm:flex-row sm:justify-between sm:items-center">
+        <header className="flex py-6 flex-row justify-between items-center">
           <span className="rounded dark:bg-gray-800 ">
             <Logo />
           </span>
@@ -41,15 +41,15 @@ export const PageLayout: React.FC<PageProps> = ({
           </nav>
         </header>
 
-        <div className="flex flex-col md:py-6 lg:flex-row lg:gap-x-16 mt-8 md:mx-20 mx-6">
-          <div className="lg:w-1/3 w-full">
+        <div className="flex flex-col md:py-6 lg:flex-row lg:gap-x-16 mt-8 mx-6">
+          <div className=" lg:w-1/2 w-full">
             <InfoSection
               title={title}
               subTitle={subTitle}
               description={description}
             />
           </div>
-          <div className="lg:w-2/3 py-6 lg:py-0 w-full h-full">{children}</div>
+          <div className="lg:w-1/2 py-6 lg:py-0 w-full h-full">{children}</div>
         </div>
       </div>
     </div>

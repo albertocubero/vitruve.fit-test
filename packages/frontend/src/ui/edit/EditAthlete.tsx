@@ -1,13 +1,13 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { IAthlete } from '../../domain/types/IAthlete';
 import AthleteForm from '../../ui/form/AthleteForm';
-import MetricsSection from '../../ui/edit/MetricsSection';
 import { useUpdateAthlete } from '../hooks/athlete/useUpdateAthlete';
 import { useGetAthlete } from '../../ui/hooks/athlete/useGetAthlete';
 import Loading from '../common/Loading';
 import ErrorMessage from '../common/ErrorMessage';
 import SuccessMessage from '../common/SuccessMessage';
 import EditPageHeader from './EditPageHeader';
+import MetricsSection from './sections/MetricsSection';
 
 interface EditAthleteProps {
   athleteId: string;
