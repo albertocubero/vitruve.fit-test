@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
-import { Logo } from '../Logo';
 import {
   GitHubHighLightButton,
   LinkedInHighLightButton,
   VitruveFitButton,
 } from './Buttons';
-import InfoSection from '../InfoSection';
+import InfoSection from './InfoSection';
+import { Logo } from './Logo';
 
 interface PageProps {
   children?: ReactNode;

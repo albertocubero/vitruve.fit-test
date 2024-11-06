@@ -4,6 +4,7 @@ import AddMetricForm from './AddMetricForm';
 import { useGetAthleteMetrics } from '../../hooks/metric/useGetAthleteMetrics';
 import Loading from '../../common/Loading';
 import ErrorMessage from '../../common/ErrorMessage';
+import AthleteMetricsEmpty from '../../detail/sections/AthleteMetricsEmpty';
 
 interface MetricsSectionProps {
   athleteId: string;
@@ -29,7 +30,7 @@ const MetricsSection: React.FC<MetricsSectionProps> = ({ athleteId }) => {
         {metrics && metrics.length > 0 ? (
           <MetricList metrics={metrics} />
         ) : (
-          <div>There are no metrics.</div>
+          <AthleteMetricsEmpty />
         )}
       </div>
 
