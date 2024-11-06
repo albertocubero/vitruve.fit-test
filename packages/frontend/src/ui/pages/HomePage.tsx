@@ -10,24 +10,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-// const customersData: IAthlete[] = [
-//   {
-//     id: "1",
-//     name: "ee",
-//     age: 25,
-//     team: "ee"
-//   }
-// ];
-
-// import { CustomerTable } from '../../CustomTable';
-// import { IAthlete } from '../../domain/types/IAthlete';
-
-// const HomePage: React.FC = () => {
-//   return (
-//     <HomePageLayout>
-//       <CustomerTable customers={customersData} />
-//     </HomePageLayout>
-//   );
-// };
-
 export { HomePage };

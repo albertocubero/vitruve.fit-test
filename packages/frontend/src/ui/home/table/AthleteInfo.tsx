@@ -10,9 +10,7 @@ const AthleteInfo: React.FC<AthleteInfoProps> = ({ athlete, history }) => {
   const navigateToViewUser = useCallback(() => {
     history.push(`/athletes/${athlete.id}`);
   }, [history, athlete]);
-
-  // mx-4 font-medium text-gray-700
-
+  
   return (
     <>
       <div className="flex items-center px-4 py-4 text-sm font-medium max-w-xs w-1/4">

@@ -110,7 +110,6 @@ CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
 
 PENDIENTE:
 - Revisar gestion de errores
-- DDD Hexagonal
 - Diseño: https://merakiui.com/
     - Table: https://merakiui.com/components/application-ui/tables 
-    - pagina 404
+    - No hay metrics: crear componente

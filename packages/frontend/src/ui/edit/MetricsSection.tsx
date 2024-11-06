@@ -1,9 +1,9 @@
 import React from 'react';
 import MetricList from '../metrics/MetricList';
 import AddMetricForm from './AddMetricForm';
-
-import LoadingErrorMessage from '../common/LoadingErrorMessage';
 import { useGetAthleteMetrics } from '../hooks/metric/useGetAthleteMetrics';
+import Loading from '../common/Loading';
+import ErrorMessage from '../common/ErrorMessage';
 
 interface MetricsSectionProps {
   athleteId: string;
@@ -18,17 +18,22 @@ const MetricsSection: React.FC<MetricsSectionProps> = ({ athleteId }) => {
 
   return (
     <>
-      <h3>Metrics</h3>
-      <LoadingErrorMessage
-        isLoading={isMetricsLoading}
-        error={metricsError?.message}
-      />
-      {metrics && metrics.length > 0 ? (
-        <MetricList metrics={metrics} />
-      ) : (
-        <div>There are no metrics.</div>
-      )}
-      <AddMetricForm athleteId={athleteId} />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-x-3">
+          <h2 className="text-lg font-medium text-gray-100">Metrics</h2>
+        </div>
+      </div>
+      {isMetricsLoading && <Loading />}
+      <div className="space-y-6">
+        <AddMetricForm athleteId={athleteId} />
+        {metrics && metrics.length > 0 ? (
+          <MetricList metrics={metrics} />
+        ) : (
+          <div>There are no metrics.</div>
+        )}
+      </div>
+
+      {metricsError && <ErrorMessage message={metricsError?.message} />}
     </>
   );
 };

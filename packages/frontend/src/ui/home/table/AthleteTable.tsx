@@ -13,7 +13,7 @@ const AthleteTable: React.FC<AthleteTableProps> = ({ athletes, history }) => {
     <div className="flex flex-col w-full mt-6">
       <div className="overflow-x-auto">
         <div className="w-full inline-block py-2 align-middle">
-          <div className="overflow-hidden border border-gray-200 dark:border-gray-700 rounded-lg">
+          <div className="overflow-hidden border border-2 border-gray-200 dark:border-gray-700 rounded-lg">
             <div className="divide-y divide-gray-300 dark:divide-gray-700 flex flex-col">
               <div className="bg-gray-200 dark:bg-gray-700 flex">
                 <AthleteTableHeaderRow />
