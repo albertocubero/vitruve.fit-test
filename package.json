@@ -2,7 +2,10 @@
   "name": "@performance-tracker/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "frontend-dev": "npx nx run frontend:serve:development", 
+    "backend-dev": "npx nx run backend:serve:development"
+  },
   "private": true,
   "packageManager": "pnpm@9.12.3",
   "workspaces": [
