@@ -2,7 +2,7 @@ import axios from 'axios';
 import { type IAthlete } from '../../domain/types/IAthlete';
 import { type IMetric } from '../../domain/types/IMetric';
 
-const API_URL = 'http://localhost:3000/api/v1/athletes';
+const API_URL = 'http://127.0.0.1:3000/api/v1/athletes';
 
 const apiClient = axios.create({
   baseURL: API_URL,

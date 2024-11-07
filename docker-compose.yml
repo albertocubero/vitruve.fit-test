@@ -1,0 +1,64 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: packages/frontend/Dockerfile
+    ports:
+      - '4200:4200'
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+    mem_limit: 3g
+    memswap_limit: 3g
+    shm_size: '512m'
+
+  backend:
+    build:
+      context: .
+      dockerfile: packages/backend/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://alberto:alberto@database:5432/performance-tracker
+    depends_on:
+      - database
+    #  - redis
+    networks:
+      - app-network
+    mem_limit: 3g
+    memswap_limit: 3g
+    shm_size: '512m'
+    # entrypoint: /bin/sh -c "until nc -z redis 6379; do echo waiting for redis; sleep 2; done; until nc -z database 5432; do echo waiting for database; sleep 2; done; node /app/packages/backend/server.js"
+
+
+  database:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=alberto
+      - POSTGRES_PASSWORD=alberto
+      - POSTGRES_DB=performance-tracker
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # redis:
+  #   image: redis:7
+  #   ports:
+  #     - '6379:6379'
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:

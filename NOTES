@@ -46,10 +46,10 @@ PETICIONES
 ==========
 
 - ATHLETE - GET ALL
-    curl -X GET http://localhost:3000/api/v1/athletes
+    curl -X GET http://127.0.0.1:3000/api/v1/athletes
 
 - ATHLETE - CREATE
-    curl -X POST http://localhost:3000/api/v1/athletes \
+    curl -X POST http://127.0.0.1:3000/api/v1/athletes \
     -H "Content-Type: application/json" \
     -d '{
     "name": "John Doe",
@@ -58,10 +58,10 @@ PETICIONES
     }'
 
 - ATHLETE - GET ONE
-    curl -X GET http://localhost:3000/api/v1/athletes/{id}
+    curl -X GET http://127.0.0.1:3000/api/v1/athletes/{id}
 
 - ATHLETE - UPDATE DATA FROM ONE
-    curl -X PUT http://localhost:3000/api/v1/athletes/{athleteId} \
+    curl -X PUT http://127.0.0.1:3000/api/v1/athletes/{athleteId} \
     -H "Content-Type: application/json" \
     -d '{
     "name": "Nuevo Nombre",
@@ -71,15 +71,15 @@ PETICIONES
 
 
 - ATHLETE - DELETE
-    curl -X DELETE http://localhost:3000/api/v1/athletes/{id}
+    curl -X DELETE http://127.0.0.1:3000/api/v1/athletes/{id}
 
 
 - ATHLETE - GET ALL METRICS
-    curl -X GET http://localhost:3000/api/v1/athletes/{id}/metrics
+    curl -X GET http://127.0.0.1:3000/api/v1/athletes/{id}/metrics
 
 
 - ATHLETE - ADD METRIC
-    curl -X POST http://localhost:3000/api/v1/athletes/{id}/metrics \
+    curl -X POST http://127.0.0.1:3000/api/v1/athletes/{id}/metrics \
     -H "Content-Type: application/json" \
     -d '{
     "metricType": "Speed",
@@ -112,4 +112,92 @@ PENDIENTE:
 - Revisar gestion de errores
 - Diseño: https://merakiui.com/
     - Table: https://merakiui.com/components/application-ui/tables 
-    - No hay metrics: crear componente
+
+
+
+
+Readme
+======
+describir instalar en local y docker compose
+
+
+
+DOCKER
+======
+SETUP
+- Limpiar caché de Docker
+    # docker builder prune --all
+- Para eliminar contenedores y volúmenes antiguos
+    # docker-compose down --volumes --remove-orphans
+- Construir los contendores
+    # docker-compose build 
+- Levanta todos los contenedores
+    # docker-compose up -d
+
+
+
+
+
+
+
+
+El el raiz del proyecto
+- Limpiar caché de Docker
+    # docker builder prune --all
+- Para eliminar contenedores y volúmenes antiguos
+    # docker-compose down --volumes --remove-orphans
+- Construir los contendores
+    # docker-compose build 
+    (o # docker-compose build --no-cache)
+- Levanta todos los contenedores
+    # docker-compose up -d
+    (o # docker-compose up --build -d)
+- Verifica que los contenedores estén corriendo
+    # docker-compose ps
+- Accede al frontend en el navegador
+    # http://127.0.0.1:4200
+
+
+- Logs Contenedor:
+    - Frontend: 
+        # docker-compose logs frontend
+
+
+- Consola en contenedor:
+# docker exec -it performance-tracker-frontend-1 /bin/sh
+
+
+- Lanzar comandos al contenedor
+    # docker ps
+    Miramos el CONTAINER ID del que nos interesa y lanzamos
+    # docker exec -it <CONTAINER-ID> /bin/bash
+    y dentro lanzamos por ejemplo
+    # curl http://127.0.0.1:4200
+
+
+- Red
+    - Ver que redes estan activas
+    # docker network ls 
+    - comprobar si existe
+    # docker network inspect performance-tracker_app-network
+    - Crearla (si no existe)
+    # docker network create performance-tracker_app-network
+    - linkar manualmente los contenedores a esa red
+    # docker network connect performance-tracker_app-network performance-tracker-frontend-1
+    # docker network connect performance-tracker_app-network performance-tracker-backend-1
+    # docker network connect performance-tracker_app-network performance-tracker-database-1
+    # docker network connect performance-tracker_app-network performance-tracker-redis-1
+
+
+
+- Detener todos los contenedores
+# docker-compose down
+- Volver a arrancar
+# docker-compose up -d
+
+
+
+
+
+FRONTEND:
+http://127.0.0.1:4200/

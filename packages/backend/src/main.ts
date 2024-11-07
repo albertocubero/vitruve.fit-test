@@ -15,5 +15,5 @@ app.onError((err: Error, c: Context)  => {
 });
 
 serve(app, (info) => {
-  logger.info(`Listening on http://localhost:${info.port}`);
+  logger.info(`Listening on http://127.0.0.1:${info.port}`);
 });
