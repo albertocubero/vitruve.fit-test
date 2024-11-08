@@ -16,5 +16,6 @@
     "**/*.cy.js",
     "**/*.cy.jsx",
     "**/*.d.ts"
-  ]
+  ],
+  "references": [{ "path": "../frontend" }]
 }

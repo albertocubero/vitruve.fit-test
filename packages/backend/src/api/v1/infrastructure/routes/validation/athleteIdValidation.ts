@@ -2,9 +2,7 @@ import { Context, Next } from 'hono';
 import { z } from 'zod';
 import { errorResponse } from '../../../../../utils/errorResponse';
 import logger from '../../../../../utils/logger';
-import { AthleteRepository } from '../../repositories/AthleteRepository';
-
-const athleteRepository = AthleteRepository.create();
+import { athleteRepository } from '../../repositories/AthleteRepository';
 
 export const athleteIdSchema = z.object({
     athleteId: z.string().min(1, 'Athlete ID is required'),

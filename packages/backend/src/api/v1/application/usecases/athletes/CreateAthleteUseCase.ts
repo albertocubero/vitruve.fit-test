@@ -9,7 +9,7 @@ export interface ICreateAthleteUseCase {
 export class CreateAthleteUseCase implements ICreateAthleteUseCase{
   private static instance: ICreateAthleteUseCase;
   
-  private constructor(private athleteRepository: IAthleteRepository) {}
+  public constructor(private athleteRepository: IAthleteRepository) {}
 
   async execute(athlete: IAthlete): Promise<IAthlete> {
     return this.athleteRepository.create(athlete);
@@ -17,9 +17,11 @@ export class CreateAthleteUseCase implements ICreateAthleteUseCase{
 
   static create (): ICreateAthleteUseCase {
     if (!CreateAthleteUseCase.instance) {
-      return new CreateAthleteUseCase(AthleteRepository.create())
+      CreateAthleteUseCase.instance = new CreateAthleteUseCase(AthleteRepository.create())
     }
 
     return CreateAthleteUseCase.instance;
   }
 }
+
+export const createAthleteUseCase = CreateAthleteUseCase.create();

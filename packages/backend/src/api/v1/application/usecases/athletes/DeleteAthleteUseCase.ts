@@ -8,7 +8,7 @@ export interface IDeleteAthleteUseCase {
 export class DeleteAthleteUseCase implements IDeleteAthleteUseCase {
   private static instance: IDeleteAthleteUseCase;
   
-  private constructor(private athleteRepository: IAthleteRepository) {}
+  public constructor(private athleteRepository: IAthleteRepository) {}
 
   async execute(athleteId: string): Promise<void> {
     await this.athleteRepository.delete(athleteId);
@@ -16,9 +16,11 @@ export class DeleteAthleteUseCase implements IDeleteAthleteUseCase {
 
   static create(): IDeleteAthleteUseCase {
     if (!DeleteAthleteUseCase.instance) {
-      return new DeleteAthleteUseCase(AthleteRepository.create());
+      DeleteAthleteUseCase.instance = new DeleteAthleteUseCase(AthleteRepository.create());
     }
     
     return DeleteAthleteUseCase.instance;
   }
 }
+
+export const deleteAthleteUseCase = DeleteAthleteUseCase.create();

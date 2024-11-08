@@ -11,7 +11,7 @@ export class MetricRepository implements IMetricRepository {
     this.prismaInstance = prismaBaseServiceFactory.getInstance();
   }
 
-  async create(metric: IMetric): Promise<Metric> {
+  async create(metric: IMetric): Promise<IMetric> {
     try {
       const createdMetric: PrismaMetric = await this.prismaInstance.metric.create({
         data: {
@@ -35,7 +35,7 @@ export class MetricRepository implements IMetricRepository {
     }
   }
 
-  async findByAthleteId(athleteId: string): Promise<Metric[]> {
+  async findByAthleteId(athleteId: string): Promise<IMetric[]> {
     try {
       const metrics: PrismaMetric[] = await this.prismaInstance.metric.findMany({
         where: { athleteId },
@@ -72,3 +72,5 @@ export class MetricRepository implements IMetricRepository {
     return MetricRepository.instance;
   }
 }
+
+export const metricRepository = MetricRepository.create();

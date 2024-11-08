@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "frontend-dev": "npx nx run frontend:serve:development", 
-    "backend-dev": "npx nx run backend:serve:development"
+    "reset": "npx nx reset",
+    "dev:frontend": "npx nx run frontend:serve:development",
+    "dev:backend": "npx nx run backend:serve:development",
+    "test:backend": "npx nx test backend"
   },
   "private": true,
   "packageManager": "pnpm@9.12.3",
@@ -36,6 +38,7 @@
     "@types/node": "~18.16.9",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
+    "@types/supertest": "^6.0.2",
     "@vitejs/plugin-react": "^4.2.0",
     "@vitest/ui": "^1.3.1",
     "babel-jest": "^29.7.0",
@@ -54,7 +57,7 @@
     "jsdom": "~22.1.0",
     "nx": "20.0.6",
     "prettier": "^2.6.2",
-    "ts-jest": "^29.1.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",
     "typescript": "~5.5.2",
@@ -63,5 +66,6 @@
     "vitest": "^1.3.1"
   },
   "dependencies": {
+    "supertest": "^7.0.0"
   }
 }

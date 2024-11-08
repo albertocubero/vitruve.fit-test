@@ -1,17 +1,17 @@
-import { Athlete, IAthlete } from "../../../domain/entities/Athlete";
+import { IAthlete } from "../../../domain/entities/Athlete";
 import { IAthleteRepository } from "../../../infrastructure/interfaces/IAthleteRepository";
 import { AthleteRepository } from "../../../infrastructure/repositories/AthleteRepository";
 
 export interface IUpdateAthleteUseCase {
-  execute(id: string, data: Partial<IAthlete>): Promise<Athlete>;
+  execute(id: string, data: Partial<IAthlete>): Promise<IAthlete>;
 }
 
 export class UpdateAthleteUseCase implements IUpdateAthleteUseCase{
   private static instance: IUpdateAthleteUseCase;
 
-  private constructor(private athleteRepository: IAthleteRepository) {}
+  public constructor(private athleteRepository: IAthleteRepository) {}
 
-  async execute(id: string, data: Partial<IAthlete>): Promise<Athlete> {
+  async execute(id: string, data: Partial<IAthlete>): Promise<IAthlete> {
     return this.athleteRepository.update(id, data);
   }
 
@@ -22,3 +22,5 @@ export class UpdateAthleteUseCase implements IUpdateAthleteUseCase{
     return UpdateAthleteUseCase.instance;
   }
 }
+
+export const updateAthleteUseCase = UpdateAthleteUseCase.create();

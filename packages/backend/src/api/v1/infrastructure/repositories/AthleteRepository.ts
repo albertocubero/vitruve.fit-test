@@ -2,7 +2,7 @@ import { PrismaClient, Athlete as PrismaAthlete } from '@prisma/client';
 import { Athlete, IAthlete } from '../../domain/entities/Athlete';
 import { IAthleteRepository } from '../interfaces/IAthleteRepository';
 import { IMetricRepository } from '../interfaces/IMetricRepository';
-import { MetricRepository } from './MetricRepository';
+import { metricRepository } from './MetricRepository';
 import { prismaBaseServiceFactory } from './PrismaDbConnector';
 
 export class AthleteRepository implements IAthleteRepository {
@@ -10,12 +10,12 @@ export class AthleteRepository implements IAthleteRepository {
   private metricRepository: IMetricRepository;
   private prismaInstance: PrismaClient;
 
-  private constructor(metricRepository: IMetricRepository) {
+  public constructor(metricRepository: IMetricRepository) {
     this.metricRepository = metricRepository;
     this.prismaInstance = prismaBaseServiceFactory.getInstance();
   }
 
-  async create(athlete: Athlete): Promise<Athlete> {
+  async create(athlete: IAthlete): Promise<IAthlete> {
     try {
       const createdAthlete: PrismaAthlete = await this.prismaInstance.athlete.create({
         data: {
@@ -30,7 +30,7 @@ export class AthleteRepository implements IAthleteRepository {
     }
   }
 
-  async findAll(): Promise<Athlete[]> {
+  async findAll(): Promise<IAthlete[]> {
     try {
       const athletes: PrismaAthlete[] = await this.prismaInstance.athlete.findMany();
       return athletes.map(
@@ -41,7 +41,7 @@ export class AthleteRepository implements IAthleteRepository {
     }
   }
 
-  async findById(athleteId: string): Promise<Athlete | null> {
+  async findById(athleteId: string): Promise<IAthlete | null> {
     try {
       const athlete: PrismaAthlete | null = await this.prismaInstance.athlete.findUnique({ where: { id: athleteId } });
       return athlete ? Athlete.create({id: athlete.id, name: athlete.name, age: athlete.age, team: athlete.team}) : null;
@@ -50,7 +50,7 @@ export class AthleteRepository implements IAthleteRepository {
     }
   }
 
-  async update(athleteId: string, data: Partial<IAthlete>): Promise<Athlete> {
+  async update(athleteId: string, data: Partial<IAthlete>): Promise<IAthlete> {
     try {
       const updatedAthlete: PrismaAthlete = await this.prismaInstance.athlete.update({
         where: { id: athleteId },
@@ -82,9 +82,10 @@ export class AthleteRepository implements IAthleteRepository {
 
   static create(): IAthleteRepository {
     if (!AthleteRepository.instance) {
-      AthleteRepository.instance = new AthleteRepository(MetricRepository.create());
+      AthleteRepository.instance = new AthleteRepository(metricRepository);
     }
     return AthleteRepository.instance;
   }
 }
 
+export const athleteRepository = AthleteRepository.create();

@@ -1,17 +1,17 @@
-import { Athlete } from "../../../domain/entities/Athlete";
+import { IAthlete } from "../../../domain/entities/Athlete";
 import { IAthleteRepository } from "../../../infrastructure/interfaces/IAthleteRepository";
 import { AthleteRepository } from "../../../infrastructure/repositories/AthleteRepository";
 
 export interface IGetAthleteUseCase {
-  execute(id: string): Promise<Athlete | null>;
+  execute(id: string): Promise<IAthlete | null>;
 }
 
 export class GetAthleteUseCase implements IGetAthleteUseCase{
   private static instance: IGetAthleteUseCase;
 
-  private constructor(private athleteRepository: IAthleteRepository) {}
+  public constructor(private athleteRepository: IAthleteRepository) {}
 
-  async execute(id: string): Promise<Athlete | null> {
+  async execute(id: string): Promise<IAthlete | null> {
     return this.athleteRepository.findById(id);
   }
 
@@ -22,3 +22,5 @@ export class GetAthleteUseCase implements IGetAthleteUseCase{
     return GetAthleteUseCase.instance;
   }
 }
+
+export const getAthleteUseCase = GetAthleteUseCase.create();

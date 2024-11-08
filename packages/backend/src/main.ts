@@ -4,7 +4,7 @@ import { cors } from 'hono/cors'
 import apiRouterV1 from './api/v1/infrastructure/routes/routes';
 import logger from './utils/logger';
 
-const app = new Hono();
+export const app = new Hono();
 
 app.use('/api/v1/*', cors())
 app.route('/api/v1', apiRouterV1);

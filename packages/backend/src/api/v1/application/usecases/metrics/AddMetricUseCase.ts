@@ -1,6 +1,6 @@
 import { IMetric } from '../../../domain/entities/Metric';
 import { IMetricRepository } from '../../../infrastructure/interfaces/IMetricRepository';
-import { MetricRepository } from '../../../infrastructure/repositories/MetricRepository';
+import { metricRepository } from '../../../infrastructure/repositories/MetricRepository';
 
 export interface IAddMetricUseCase {
   execute(data: IMetric): Promise<IMetric>;
@@ -9,7 +9,7 @@ export interface IAddMetricUseCase {
 export class AddMetricUseCase implements IAddMetricUseCase{
   private static instance: IAddMetricUseCase;
 
-  private constructor(private metricRepository: IMetricRepository) {}
+  public constructor(private metricRepository: IMetricRepository) {}
 
   async execute(metric: IMetric): Promise<IMetric> {
     return this.metricRepository.create(metric);
@@ -17,8 +17,10 @@ export class AddMetricUseCase implements IAddMetricUseCase{
 
   static create(): IAddMetricUseCase {
     if (!AddMetricUseCase.instance) {
-      AddMetricUseCase.instance = new AddMetricUseCase(MetricRepository.create());
+      AddMetricUseCase.instance = new AddMetricUseCase(metricRepository);
     }
     return AddMetricUseCase.instance;
   }
 }
+
+export const addMetricUseCase = AddMetricUseCase.create();

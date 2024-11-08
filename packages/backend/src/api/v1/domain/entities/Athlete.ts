@@ -5,7 +5,7 @@ export interface IAthlete {
   team: string;
 }
 
-export class Athlete implements IAthlete{
+export class Athlete implements IAthlete {
   private constructor(
     public readonly id: string | undefined,
     public name: string,

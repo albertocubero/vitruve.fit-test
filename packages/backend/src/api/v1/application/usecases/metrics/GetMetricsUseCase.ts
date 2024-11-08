@@ -1,24 +1,26 @@
-import { Metric } from "../../../domain/entities/Metric";
+import { IMetric } from "../../../domain/entities/Metric";
 import { IMetricRepository } from "../../../infrastructure/interfaces/IMetricRepository";
-import { MetricRepository } from "../../../infrastructure/repositories/MetricRepository";
+import { metricRepository } from "../../../infrastructure/repositories/MetricRepository";
 
 export interface IGetMetricsUseCase {
-  execute(athleteId: string): Promise<Metric[]>;
+  execute(athleteId: string): Promise<IMetric[]>;
 }
 
 export class GetMetricsUseCase implements IGetMetricsUseCase {
   private static instance: IGetMetricsUseCase;
 
-  private constructor(private metricRepository: IMetricRepository) {}
+  public constructor(private metricRepository: IMetricRepository) {}
 
-  async execute(athleteId: string): Promise<Metric[]> {
+  async execute(athleteId: string): Promise<IMetric[]> {
     return this.metricRepository.findByAthleteId(athleteId);
   }
 
   static create(): IGetMetricsUseCase {
     if (!GetMetricsUseCase.instance) {
-      GetMetricsUseCase.instance = new GetMetricsUseCase(MetricRepository.create());
+      GetMetricsUseCase.instance = new GetMetricsUseCase(metricRepository);
     }
     return GetMetricsUseCase.instance;
   }
 }
+
+export const getMetricsUseCase = GetMetricsUseCase.create();

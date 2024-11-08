@@ -1,26 +1,20 @@
 import { Context, Hono } from 'hono';
-import { CreateAthleteUseCase, ICreateAthleteUseCase } from '../../application/usecases/athletes/CreateAthleteUseCase';
-import { GetAllAthletesUseCase, IGetAllAthletesUseCase } from '../../application/usecases/athletes/GetAllAthletesUseCase';
-import { GetAthleteUseCase, IGetAthleteUseCase } from '../../application/usecases/athletes/GetAthleteUseCase';
-import { IUpdateAthleteUseCase, UpdateAthleteUseCase } from '../../application/usecases/athletes/UpdateAthleteUseCase';
+import { createAthleteUseCase } from '../../application/usecases/athletes/CreateAthleteUseCase';
+import { getAllAthletesUseCase } from '../../application/usecases/athletes/GetAllAthletesUseCase';
+import { getAthleteUseCase } from '../../application/usecases/athletes/GetAthleteUseCase';
+import { updateAthleteUseCase } from '../../application/usecases/athletes/UpdateAthleteUseCase';
+import { deleteAthleteUseCase } from '../../application/usecases/athletes/DeleteAthleteUseCase';
 import { validateCreateAthleteParams, validateUpdateAthlete } from './validation/athleteValidation';
 import { validateAthleteId } from './validation/athleteIdValidation';
 import { Athlete, IAthlete } from '../../domain/entities/Athlete';
 import { errorResponse, errorLogMessage } from '../../../../utils/errorResponse';
 import logger from '../../../../utils/logger';
-import { DeleteAthleteUseCase, IDeleteAthleteUseCase } from '../../application/usecases/athletes/DeleteAthleteUseCase';
-
-const createAthleteUseCase: ICreateAthleteUseCase = CreateAthleteUseCase.create();
-const getAllAthletesUseCase: IGetAllAthletesUseCase = GetAllAthletesUseCase.create();
-const getAthleteUseCase: IGetAthleteUseCase = GetAthleteUseCase.create();
-const updateAthleteUseCase: IUpdateAthleteUseCase = UpdateAthleteUseCase.create();
-const deleteAthleteUseCase: IDeleteAthleteUseCase = DeleteAthleteUseCase.create();
 
 export const athleteController = new Hono();
 
 athleteController.get('/', async (c: Context) => {
   try {
-    const athletes: Athlete[] = await getAllAthletesUseCase.execute();
+    const athletes: IAthlete[] = await getAllAthletesUseCase.execute();
     logger.info(`[ATHLETES] Retrieved ${athletes.length} athletes`);
     return c.json(athletes);
   } catch (error: unknown) {
