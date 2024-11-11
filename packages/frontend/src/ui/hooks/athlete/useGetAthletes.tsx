@@ -1,10 +1,6 @@
 import { useQuery } from 'react-query';
-import { GetAthletesUseCase } from '../../../application/useCases/athlete/GetAthletesUseCase';
+import { getAthletesUseCase } from '../../../application/useCases/athlete/GetAthletesUseCase';
 import { IAthlete } from '../../../domain/types/IAthlete';
-import { AthleteRepository } from '../../../infrastructure/repositories/AthleteRepository';
-
-const athleteRepository = new AthleteRepository();
-const getAthletesUseCase = new GetAthletesUseCase(athleteRepository);
 
 const queryOptions = {
   staleTime: 1000 * 60 * 5,

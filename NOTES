@@ -109,7 +109,8 @@ CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
 
 
 PENDIENTE:
-- Revisar gestion de errores
+- tests: refactorizar "withRouter"
+- optimizaciones: memo, useCallback y useMemo
 - Diseño: https://merakiui.com/
     - Table: https://merakiui.com/components/application-ui/tables 
 

@@ -25,7 +25,6 @@ const CreateAthlete: React.FC = () => {
   useEffect(() => {
     if (isSuccess) {
       setIsCreatedSuccessful(true);
-      setTimeout(() => setIsCreatedSuccessful(false), 5000);
     }
   }, [isSuccess]);
 

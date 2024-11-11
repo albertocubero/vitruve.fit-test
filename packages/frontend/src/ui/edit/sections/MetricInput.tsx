@@ -20,9 +20,9 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
 }) => {
   return (
     <div className="w-full mt-4">
-    <label className="text-gray-700 dark:text-gray-200" htmlFor={name}>
-      {label}
-    </label>
+      <label className="text-gray-700 dark:text-gray-200" htmlFor={name}>
+        {label}
+      </label>
       <Controller
         name={name}
         control={control}
@@ -40,7 +40,9 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
           />
         )}
       />
-      {error && <p className="mt-2 text-xs text-red-400 dark:text-red-300">{error}</p>}
+      {error && (
+        <p className="mt-2 text-xs text-red-400 dark:text-red-300">{error}</p>
+      )}
     </div>
   );
 };

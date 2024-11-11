@@ -2,7 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "types": [
       "jest",
       "node",
@@ -20,6 +21,8 @@
     "src/**/*.spec.js",
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
+    "src/**/*.tsx", 
+    "src/**/*.ts", 
     "src/**/*.d.ts"
-  ]
+, "tests/app/app.spec.tsx"  ]
 }

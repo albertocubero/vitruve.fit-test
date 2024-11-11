@@ -38,7 +38,6 @@ const EditAthlete: React.FC<EditAthleteProps> = ({ athleteId }) => {
   useEffect(() => {
     if (isSuccess) {
       setIsUpdateSuccessful(true);
-      setTimeout(() => setIsUpdateSuccessful(false), 5000);
     }
   }, [isSuccess]);
 

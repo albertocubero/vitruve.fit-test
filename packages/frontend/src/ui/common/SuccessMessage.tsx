@@ -32,6 +32,7 @@ const SuccessMessage: React.FC<SuccessCardProps> = ({ message }) => {
 
   return (
     <div
+      data-testid="success-message"
       className={`fixed bottom-4 right-4 flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 transition-opacity duration-1000`}
       style={{ opacity }}
     >

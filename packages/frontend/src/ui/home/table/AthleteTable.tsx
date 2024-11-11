@@ -1,14 +1,13 @@
 import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { AthleteRow } from './AthleteTableRow';
 import AthleteTableHeaderRow from './AthleteTableHeaderRow';
 import { IAthlete } from '../../../domain/types/IAthlete';
 
-interface AthleteTableProps extends RouteComponentProps {
+interface AthleteTableProps {
   athletes: IAthlete[];
 }
 
-const AthleteTable: React.FC<AthleteTableProps> = ({ athletes, history }) => {
+const AthleteTable: React.FC<AthleteTableProps> = ({ athletes }) => {
   return (
     <div className="flex flex-col w-full mt-6">
       <div className="overflow-x-auto">
@@ -31,4 +30,4 @@ const AthleteTable: React.FC<AthleteTableProps> = ({ athletes, history }) => {
   );
 };
 
-export default withRouter(AthleteTable);
+export default AthleteTable;

@@ -2,6 +2,15 @@ import axios from 'axios';
 import { type IAthlete } from '../../domain/types/IAthlete';
 import { type IMetric } from '../../domain/types/IMetric';
 
+export interface IAthleteService {
+  getAthletes(): Promise<IAthlete[]>;
+  getAthlete(id: string): Promise<IAthlete>;
+  saveAthlete(athlete: IAthlete): Promise<IAthlete>;
+  deleteAthlete(id: string): Promise<void>;
+  getMetrics(athleteId: string): Promise<IMetric[]>;
+  addMetric(metric: IMetric): Promise<IMetric>;
+}
+
 const API_URL = 'http://127.0.0.1:3000/api/v1/athletes';
 
 const apiClient = axios.create({
@@ -16,7 +25,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-export const athleteService = {
+export const athleteService: IAthleteService = {
   getAthletes: async (): Promise<IAthlete[]> => {
     const { data } = await apiClient.get('');
     return data;

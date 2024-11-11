@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import { athleteService } from '../../../infrastructure/services/athleteService';
 import { IAthlete } from '../../../domain/types/IAthlete';
+import { getAthleteUseCase } from '../../../application/useCases/athlete/GetAthleteUseCase';
 
 const queryOptions = {
   staleTime: 1000 * 60 * 5,
@@ -11,7 +11,7 @@ const queryOptions = {
 export const useGetAthlete = (athleteId: string) => {
   return useQuery<IAthlete, Error>(
     ['athlete', athleteId],
-    () => athleteService.getAthlete(athleteId),
+    () => getAthleteUseCase.execute(athleteId),
     { enabled: !!athleteId, ...queryOptions }
   );
 };

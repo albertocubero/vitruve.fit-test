@@ -8,8 +8,10 @@ const TrashIcon: React.FC<{ className?: string }> = ({ className }) => {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
+      data-testid="trash-icon"
     >
       <path
+        data-testid="trash-icon-path"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
