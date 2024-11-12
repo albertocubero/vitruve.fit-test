@@ -9,12 +9,23 @@ import { validateAthleteId } from './validation/athleteIdValidation';
 import { Athlete, IAthlete } from '../../domain/entities/Athlete';
 import { errorResponse, errorLogMessage } from '../../../../utils/errorResponse';
 import logger from '../../../../utils/logger';
+import athletesCacheFactory from '../repositories/cache/athletesCache';
+import athleteCacheFactory from '../repositories/cache/athleteCache';
 
 export const athleteController = new Hono();
 
 athleteController.get('/', async (c: Context) => {
   try {
-    const athletes: IAthlete[] = await getAllAthletesUseCase.execute();
+    const athletesCache = athletesCacheFactory();
+    let athletes: IAthlete[] | null = await athletesCache.getAthletes();
+    
+    if (!athletes) {
+      athletes = await getAllAthletesUseCase.execute();
+      await athletesCache.setAthletes(athletes);
+    } else {
+      logger.info(`[REDIS] Retrieved ${athletes.length} athletes`);
+    }
+
     logger.info(`[ATHLETES] Retrieved ${athletes.length} athletes`);
     return c.json(athletes);
   } catch (error: unknown) {
@@ -30,6 +41,9 @@ athleteController.post('/', validateCreateAthleteParams, async (c: Context) => {
     const athlete: IAthlete = Athlete.create({name, age, team});
 
     const newAthlete = await createAthleteUseCase.execute(athlete);
+    const athleteCache = athleteCacheFactory();
+    await athleteCache.setAthlete(newAthlete);
+
     logger.info(`[ATHLETES] Created athlete: ${newAthlete.id}`);
     return c.json(newAthlete, 201);
   } catch (error: unknown) {
@@ -42,7 +56,18 @@ athleteController.post('/', validateCreateAthleteParams, async (c: Context) => {
 athleteController.get('/:athleteId', validateAthleteId, async (c: Context) => {
   const athleteId: string = c.req.param('athleteId');
   try {
-    const athlete: IAthlete | null = await getAthleteUseCase.execute(athleteId);
+    const athleteCache = athleteCacheFactory();
+    let athlete: IAthlete | null = await athleteCache.getAthlete(athleteId);
+
+    if (!athlete) {
+      athlete = await getAthleteUseCase.execute(athleteId);
+      if (athlete) {
+        await athleteCache.setAthlete(athlete);
+      }
+    } else {
+      logger.info(`[REDIS] Retrieved athlete: ${athleteId}`);
+    }
+
     if (athlete) {
       logger.info(`[ATHLETES] Retrieved athlete: ${athleteId}`);
       return c.json(athlete);
@@ -62,7 +87,11 @@ athleteController.put('/:athleteId', validateUpdateAthlete, async (c: Context) =
 
   try {
     const dataToUpdate: Partial<IAthlete> = await c.req.json<IAthlete>();
+
     const updatedAthlete = await updateAthleteUseCase.execute(athleteId, dataToUpdate);
+    const athleteCache = athleteCacheFactory();
+    await athleteCache.updateAthlete(updatedAthlete);
+
     logger.info(`[ATHLETES] Updated athlete: ${athleteId}`);
     return c.json(updatedAthlete);
   } catch (error: unknown) {
@@ -77,6 +106,9 @@ athleteController.delete('/:athleteId', validateAthleteId, async (c: Context) =>
 
   try {
     await deleteAthleteUseCase.execute(athleteId);
+    const athleteCache = athleteCacheFactory();
+    await athleteCache.deleteAthlete(athleteId);
+
     logger.info(`[ATHLETES] Deleted athlete and associated metrics: ${athleteId}`);
     return c.json({ message: `[ATHLETES] Athlete with id ${athleteId} deleted successfully.` }, 200);
   } catch (error: unknown) {
