@@ -32,6 +32,9 @@ You will be tasked with creating a **Performance Tracking Dashboard** for athlet
   
 ## Instructions to Run the Project
 
+0. Download Docker:
+   [https://www.docker.com/](https://www.docker.com/)
+
 1. Clone this repository to your local machine:
    ```bash
    git clone https://albertocubero@bitbucket.org/albertocubero/vitruve.fit.git
