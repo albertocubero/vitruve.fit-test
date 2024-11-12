@@ -1,34 +1,26 @@
-# Usa una imagen de Node.js como base
-FROM node:18-alpine
+FROM node:18
 
-# Instala nc (Netcat) para la comprobación de puertos
-# RUN apt-get update && apt-get install -y netcat-openbsd
+RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
 
-# Establece el directorio de trabajo en el contenedor
+ENV CI=true
+ENV NX_CACHE_OUTPUTS=false
+ENV NPM_CONFIG_IGNORE_SCRIPTS=true
+ENV NX_PLUGIN_NO_TIMEOUTS=true
+
 WORKDIR /app
 
-# Copia los archivos de configuración de la raíz necesarios para instalar dependencias
+ENV PATH=/app/node_modules/.bin:$PATH
+
 COPY package.json package-lock.json nx.json ./
 COPY packages/backend/package.json ./packages/backend/
 COPY tsconfig.base.json ./
-
-# Copia solo el código del backend
 COPY packages/backend ./packages/backend
 
-# Install Nx globally
-RUN rm -rf node_modules
-RUN npm cache clean --force
-RUN npm install -g nx
-# RUN corepack enable
+RUN npm ci
 
-# Clean previous node_modules and lock files, just in case
-RUN npm install
-
-# Copy the project files
 COPY . .
 
-# Expone el puerto donde escucha tu servidor backend
-EXPOSE 3000
+COPY /packages/backend/wait-for-db.sh ./packages/backend/wait-for-db.sh
+RUN chmod +x ./packages/backend/wait-for-db.sh
 
-# Ejecuta el backend en producción
-CMD ["nx", "run", "backend:serve:development"]
+EXPOSE 3000

@@ -9,11 +9,7 @@ services:
       - backend
     networks:
       - app-network
-    environment:
-      - NODE_ENV=development
-    mem_limit: 3g
-    memswap_limit: 3g
-    shm_size: '512m'
+    command: ["node", "packages/frontend/serve-frontend.js"]
 
   backend:
     build:
@@ -22,19 +18,19 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - NODE_ENV=development
       - REDIS_URL=redis://redis:6379
       - DATABASE_URL=postgresql://alberto:alberto@database:5432/performance-tracker
+    command: ["/bin/sh", "-c", "packages/backend/wait-for-db.sh && node dist/packages/backend/main.js"]
     depends_on:
       - database
-    #  - redis
+      - redis
     networks:
       - app-network
-    mem_limit: 3g
-    memswap_limit: 3g
-    shm_size: '512m'
-    # entrypoint: /bin/sh -c "until nc -z redis 6379; do echo waiting for redis; sleep 2; done; until nc -z database 5432; do echo waiting for database; sleep 2; done; node /app/packages/backend/server.js"
-
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   database:
     image: postgres:15
@@ -49,12 +45,12 @@ services:
     networks:
       - app-network
 
-  # redis:
-  #   image: redis:7
-  #   ports:
-  #     - '6379:6379'
-  #   networks:
-  #     - app-network
+  redis:
+    image: redis:7
+    ports:
+      - '6379:6379'
+    networks:
+      - app-network
 
 networks:
   app-network:

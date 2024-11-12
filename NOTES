@@ -45,6 +45,9 @@ PENDIENTE
 PETICIONES
 ==========
 
+- HEALTH
+    curl -X GET http://127.0.0.1:3000/api/v1/health
+
 - ATHLETE - GET ALL
     curl -X GET http://127.0.0.1:3000/api/v1/athletes
 
@@ -109,7 +112,6 @@ CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
 
 
 PENDIENTE:
-- tests: refactorizar "withRouter"
 - optimizaciones: memo, useCallback y useMemo
 - Diseño: https://merakiui.com/
     - Table: https://merakiui.com/components/application-ui/tables 
@@ -134,6 +136,7 @@ SETUP
     # docker-compose build 
 - Levanta todos los contenedores
     # docker-compose up -d
+    (o docker-compose up --build)
 
 
 
@@ -147,6 +150,7 @@ El el raiz del proyecto
     # docker builder prune --all
 - Para eliminar contenedores y volúmenes antiguos
     # docker-compose down --volumes --remove-orphans
+    (o docker-compose down --rmi all)
 - Construir los contendores
     # docker-compose build 
     (o # docker-compose build --no-cache)
@@ -202,3 +206,22 @@ El el raiz del proyecto
 
 FRONTEND:
 http://127.0.0.1:4200/
+
+
+
+PENDIENTE
+- pre-lanzar nx build frontend y backend, para que se cree dist y asi luego lo copie y lo arranque bien
+
+
+
+- Comandos Docker
+1) npm run docker:run
+
+
+
+
+
+FALTA
+1) README
+2) REDIS
+3) frontend: optimizaciones
