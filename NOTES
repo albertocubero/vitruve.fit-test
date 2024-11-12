@@ -1,8 +1,3 @@
-README
-- Nx como global
-
-
-
 postgresql
 ==========
 bbdd: performance-tracker
@@ -36,9 +31,6 @@ NX - Backend
 CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
 # kill $(ps aux | grep nx | awk '{print $2}')
 
-PENDIENTE
-- bbdd: hacer copia seguridad (package script)
-- bbdd: restaurar copia seguridad (package script)
 
 
 
@@ -92,13 +84,6 @@ PETICIONES
 
 
 
-Backend
-- JWT-based authentication system
-- Redis
-- Repasar mensajes de error
-- Typescript
-- Tests
-
 
 
 
@@ -110,18 +95,14 @@ NX - FRONTEND
 CUANDO SE QUEDA BLOQUEADO (PROCESO ZOMBIE)
 # kill $(ps aux | grep nx | awk '{print $2}')
 
-
-PENDIENTE:
-- optimizaciones: memo, useCallback y useMemo
+Diseño:
 - Diseño: https://merakiui.com/
     - Table: https://merakiui.com/components/application-ui/tables 
 
 
 
 
-Readme
-======
-describir instalar en local y docker compose
+
 
 
 
@@ -137,10 +118,6 @@ SETUP
 - Levanta todos los contenedores
     # docker-compose up -d
     (o docker-compose up --build)
-
-
-
-
 
 
 
@@ -209,20 +186,8 @@ http://127.0.0.1:4200/
 
 
 
-PENDIENTE
-- pre-lanzar nx build frontend y backend, para que se cree dist y asi luego lo copie y lo arranque bien
-
-
 
 - Comandos Docker
 1) npm run docker:run
 
 
-
-
-
-FALTA
-1) README
-2) REDIS
-    - tests
-3) frontend: optimizaciones
