@@ -9,7 +9,7 @@
     "dev:backend": "nx run backend:serve:development",
     "production:frontend": "nx serve frontend --configuration=production --host=0.0.0.0",
     "production:backend": "nx serve backend --configuration=production --host=0.0.0.0",
-    
+
     "test": "npm run test:frontend && npm run test:backend",
     "test:frontend": "nx test frontend",
     "test:backend": "nx test backend",
@@ -22,7 +22,7 @@
     "docker:build:frontend": "npm run build:frontend",
     "docker:build:backend": "npm run docker:prisma:generate && npm run build:backend",
     "docker:prisma:generate": "npx prisma generate --schema=./packages/backend/prisma/schema.prisma",
-    "docker:up": "docker-compose up"
+    "docker:up": "docker-compose up -d"
   },
   "private": true,
   "packageManager": "pnpm@9.12.3",

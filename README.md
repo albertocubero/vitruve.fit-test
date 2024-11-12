@@ -36,12 +36,19 @@ You will be tasked with creating a **Performance Tracking Dashboard** for athlet
    ```bash
    git clone https://albertocubero@bitbucket.org/albertocubero/vitruve.fit.git
    ```
+2. Enter in the test folder:
    ```bash
    cd vitruve.fit
    ```
+3. Install project dependencies:
    ```bash
    npm install
    ```
+4. Run Docker:
    ```bash
    npm run docker:run
+   ```
+5. Open url in the browser:
+   ```bash
+   http://localhost:4200/
    ```
