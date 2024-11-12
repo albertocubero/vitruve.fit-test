@@ -19,20 +19,29 @@ You will be tasked with creating a **Performance Tracking Dashboard** for athlet
 - Ionic
 - Tailwind CSS
 - React Query
-
-## Additional Requirements
-
+- Jest + Testing Library 
 - Monorepo Setup (using Nx)
+
+## Features
+
 - Error Handling (backend and frontend)
-- Performance Optimizations (e.g., code splitting, lazy loading)
+- Performance Optimizations
 - Domain-Driven Design (DDD)
 - Caching (using Redis)
-- CI/CD Integration (using GitHub Actions)
-- Authentication (JWT-based)
-- Testing (Jest and Cypress)
+- Testing
   
 ## Instructions to Run the Project
 
 1. Clone this repository to your local machine:
    ```bash
-   git clone <repository-URL>
+   git clone https://albertocubero@bitbucket.org/albertocubero/vitruve.fit.git
+   ```
+   ```bash
+   cd vitruve.fit
+   ```
+   ```bash
+   npm install
+   ```
+   ```bash
+   npm run docker:run
+   ```

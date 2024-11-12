@@ -9,9 +9,7 @@
     "dev:backend": "nx run backend:serve:development",
     "production:frontend": "nx serve frontend --configuration=production --host=0.0.0.0",
     "production:backend": "nx serve backend --configuration=production --host=0.0.0.0",
-    "start:daemon": "nx daemon",
-    "reset": "nx reset",
-
+    
     "test": "npm run test:frontend && npm run test:backend",
     "test:frontend": "nx test frontend",
     "test:backend": "nx test backend",
@@ -20,7 +18,10 @@
     "docker:down": "docker-compose down",
     "docker:rm": "docker-compose rm -s -f frontend backend",
     "docker:rmi": "docker rmi --force performance-tracker-backend performance-tracker-frontend",
-    "docker:build": "npm run build:frontend && npm run build:backend",
+    "docker:build": "npm run docker:build:frontend && npm run docker:build:backend",
+    "docker:build:frontend": "npm run build:frontend",
+    "docker:build:backend": "npm run docker:prisma:generate && npm run build:backend",
+    "docker:prisma:generate": "npx prisma generate --schema=./packages/backend/prisma/schema.prisma",
     "docker:up": "docker-compose up"
   },
   "private": true,
