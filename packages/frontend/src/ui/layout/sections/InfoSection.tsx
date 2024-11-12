@@ -22,4 +22,4 @@ const InfoSection: React.FC<InfoSectionProps> = ({
   );
 };
 
-export default InfoSection;
+export default React.memo(InfoSection);

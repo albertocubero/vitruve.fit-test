@@ -16,4 +16,4 @@ const AthleteMetricsEmpty: React.FC = () => {
   );
 };
 
-export default AthleteMetricsEmpty;
+export default React.memo(AthleteMetricsEmpty);

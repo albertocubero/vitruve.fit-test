@@ -21,4 +21,4 @@ const TrashIcon: React.FC<{ className?: string }> = ({ className }) => {
   );
 };
 
-export default TrashIcon;
+export default React.memo(TrashIcon);

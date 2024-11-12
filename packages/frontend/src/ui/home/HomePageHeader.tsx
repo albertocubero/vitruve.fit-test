@@ -22,4 +22,4 @@ const HomePageHeader: React.FC<HomePageHeaderProps> = ({ athletes }) => {
   );
 };
 
-export default HomePageHeader;
+export default React.memo(HomePageHeader);

@@ -6,7 +6,7 @@ interface AthleteInfoProps extends RouteComponentProps {
   athlete: IAthlete;
 }
 
-const AthleteInfo: React.FC<AthleteInfoProps> = ({ athlete, history }) => {
+const AthleteInfo: React.FC<AthleteInfoProps> = React.memo(({ athlete, history }) => {
   const navigateToViewUser = useCallback(() => {
     history.push(`/athletes/${athlete.id}`);
   }, [history, athlete]);
@@ -33,6 +33,6 @@ const AthleteInfo: React.FC<AthleteInfoProps> = ({ athlete, history }) => {
       </div>
     </>
   );
-};
+});
 
 export default withRouter(AthleteInfo);

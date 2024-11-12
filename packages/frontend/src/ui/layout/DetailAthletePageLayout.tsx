@@ -5,7 +5,7 @@ interface CustomPageProps {
   children?: ReactNode;
 }
 
-export const DetailAthletePageLayout: React.FC<CustomPageProps> = ({
+export const DetailAthletePageLayout: React.FC<CustomPageProps> = React.memo(({
   children,
 }) => {
   const pageProps = {
@@ -16,4 +16,4 @@ export const DetailAthletePageLayout: React.FC<CustomPageProps> = ({
   };
 
   return <PageLayout {...pageProps} children={children} />;
-};
+});

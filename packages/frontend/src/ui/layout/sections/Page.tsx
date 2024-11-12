@@ -14,7 +14,7 @@ interface PageProps {
   description: string;
 }
 
-export const PageLayout: React.FC<PageProps> = ({
+export const PageLayout: React.FC<PageProps> = React.memo(({
   title = '',
   subTitle = '',
   description = '',
@@ -54,4 +54,4 @@ export const PageLayout: React.FC<PageProps> = ({
       </div>
     </div>
   );
-};
+});

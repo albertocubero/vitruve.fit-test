@@ -47,4 +47,4 @@ const ControlledInput: React.FC<ControlledInputProps> = ({
   );
 };
 
-export default ControlledInput;
+export default React.memo(ControlledInput);

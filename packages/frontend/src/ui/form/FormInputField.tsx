@@ -50,4 +50,4 @@ const FormInputField: React.FC<FormInputFieldProps> = ({
   </div>
 );
 
-export default FormInputField;
+export default React.memo(FormInputField);

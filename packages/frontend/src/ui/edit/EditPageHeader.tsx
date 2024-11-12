@@ -7,4 +7,4 @@ const EditPageHeader: React.FC = () => {
   );
 };
 
-export default EditPageHeader;
+export default React.memo(EditPageHeader);

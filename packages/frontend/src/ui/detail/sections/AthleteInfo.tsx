@@ -24,4 +24,4 @@ const AthleteInfo: React.FC<AthleteInfoProps> = ({ athlete }) => (
   </div>
 );
 
-export default AthleteInfo;
+export default React.memo(AthleteInfo);

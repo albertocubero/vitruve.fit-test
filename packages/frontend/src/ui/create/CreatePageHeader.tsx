@@ -7,4 +7,4 @@ const CreatePageHeader: React.FC = () => {
   );
 };
 
-export default CreatePageHeader;
+export default React.memo(CreatePageHeader);

@@ -7,4 +7,4 @@ const DetailPageHeader: React.FC = () => {
   );
 };
 
-export default DetailPageHeader;
+export default React.memo(DetailPageHeader);

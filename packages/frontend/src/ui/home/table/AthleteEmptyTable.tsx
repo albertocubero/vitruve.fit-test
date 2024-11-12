@@ -23,4 +23,4 @@ const AthleteEmptyTable: React.FC = () => {
   );
 };
 
-export default AthleteEmptyTable;
+export default React.memo(AthleteEmptyTable);

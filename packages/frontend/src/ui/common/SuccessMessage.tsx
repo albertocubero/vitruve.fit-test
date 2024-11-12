@@ -56,4 +56,4 @@ const SuccessMessage: React.FC<SuccessCardProps> = ({ message }) => {
   );
 };
 
-export default SuccessMessage;
+export default React.memo(SuccessMessage);

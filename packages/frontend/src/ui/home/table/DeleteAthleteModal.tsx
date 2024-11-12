@@ -83,4 +83,4 @@ const DeleteAthleteModal: React.FC<DeleteAthleteModalProps> = ({
   );
 };
 
-export default DeleteAthleteModal;
+export default React.memo(DeleteAthleteModal);

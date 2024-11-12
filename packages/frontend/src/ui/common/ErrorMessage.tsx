@@ -58,4 +58,4 @@ const ErrorMessage: React.FC<ErrorCardProps> = ({ message }) => {
   );
 };
 
-export default ErrorMessage;
+export default React.memo(ErrorMessage);

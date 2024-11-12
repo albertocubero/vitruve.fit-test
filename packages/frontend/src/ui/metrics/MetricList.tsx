@@ -33,4 +33,4 @@ const MetricList: React.FC<MetricListProps> = ({ metrics = [] }) => {
   );
 };
 
-export default MetricList;
+export default React.memo(MetricList);

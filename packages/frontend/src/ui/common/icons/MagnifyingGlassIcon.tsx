@@ -21,4 +21,4 @@ const MagnifyingGlassIcon: React.FC = () => {
   );
 };
 
-export default MagnifyingGlassIcon;
+export default React.memo(MagnifyingGlassIcon);

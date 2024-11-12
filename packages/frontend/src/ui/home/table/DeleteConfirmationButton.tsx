@@ -32,4 +32,4 @@ const DeleteConfirmationButton: React.FC<DeleteConfirmationButtonProps> = ({
   );
 };
 
-export default DeleteConfirmationButton;
+export default React.memo(DeleteConfirmationButton);

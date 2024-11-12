@@ -16,4 +16,4 @@ const PageHeader: React.FC<AthleteProfileHeaderProps> = ({ title }) => {
   );
 };
 
-export default PageHeader;
+export default React.memo(PageHeader);

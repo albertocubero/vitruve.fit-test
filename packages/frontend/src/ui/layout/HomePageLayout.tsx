@@ -5,7 +5,7 @@ interface CustomPageProps {
   children?: ReactNode;
 }
 
-export const HomePageLayout: React.FC<CustomPageProps> = ({ children }) => {
+export const HomePageLayout: React.FC<CustomPageProps> = React.memo(({ children }) => {
   const pageProps = {
     title: 'Performance Tracking Dashboard',
     subTitle: 'Monitor Your Progress',
@@ -14,4 +14,4 @@ export const HomePageLayout: React.FC<CustomPageProps> = ({ children }) => {
   };
 
   return <PageLayout {...pageProps} children={children} />;
-};
+});

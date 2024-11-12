@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import AthleteDetail from '../detail/AthleteDetail';
 import { DetailAthletePageLayout } from '../layout/DetailAthletePageLayout';
 
-const DetailPage: React.FC = () => {
+const DetailPage: React.FC = React.memo(() => {
   const { athleteId } = useParams<{ athleteId: string }>();
 
   return (
@@ -11,6 +11,6 @@ const DetailPage: React.FC = () => {
       <AthleteDetail athleteId={athleteId} />
     </DetailAthletePageLayout>
   );
-};
+});
 
 export { DetailPage };

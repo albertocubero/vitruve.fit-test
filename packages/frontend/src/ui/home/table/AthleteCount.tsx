@@ -5,7 +5,7 @@ interface AthleteCountProps {
   athletes: IAthlete[] | undefined;
 }
 
-export const AthleteCount: React.FC<AthleteCountProps> = ({ athletes }) => {
+const AthleteCount: React.FC<AthleteCountProps> = React.memo(({ athletes }) => {
   if (!athletes || athletes.length === 0) return null;
 
   return (
@@ -15,4 +15,6 @@ export const AthleteCount: React.FC<AthleteCountProps> = ({ athletes }) => {
         : `${athletes.length} User`}
     </span>
   );
-};
+});
+
+export { AthleteCount };

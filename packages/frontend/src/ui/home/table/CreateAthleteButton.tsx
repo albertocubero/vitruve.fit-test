@@ -3,7 +3,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface CreateAthleteButtonProps extends RouteComponentProps {}
 
-const CreateAthleteButton: React.FC<CreateAthleteButtonProps> = ({ history }) => {
+const CreateAthleteButton: React.FC<CreateAthleteButtonProps> = React.memo(({ history }) => {
   const navigateToCreateUser = useCallback(() => {
     history.push('/athletes/new');
   }, [history]);
@@ -16,6 +16,6 @@ const CreateAthleteButton: React.FC<CreateAthleteButtonProps> = ({ history }) =>
       Create User
     </button>
   );
-};
+});
 
 export default withRouter(CreateAthleteButton);

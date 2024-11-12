@@ -5,7 +5,7 @@ interface AthleteEditLinkProps extends RouteComponentProps {
   athleteId: string;
 }
 
-const AthleteEditLink: React.FC<AthleteEditLinkProps> = ({
+const AthleteEditLink: React.FC<AthleteEditLinkProps> = React.memo(({
   athleteId,
   history,
 }) => {
@@ -34,6 +34,6 @@ const AthleteEditLink: React.FC<AthleteEditLinkProps> = ({
       </svg>
     </button>
   );
-};
+});
 
 export default withRouter(AthleteEditLink);

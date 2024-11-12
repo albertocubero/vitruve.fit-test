@@ -114,4 +114,4 @@ const AddMetricForm: React.FC<AddMetricFormProps> = React.memo(
   }
 );
 
-export default AddMetricForm;
+export default React.memo(AddMetricForm);

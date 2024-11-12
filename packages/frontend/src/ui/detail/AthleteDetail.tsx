@@ -30,4 +30,4 @@ const AthleteDetail: React.FC<AthleteDetailProps> = React.memo(
   }
 );
 
-export default AthleteDetail;
+export default React.memo(AthleteDetail);

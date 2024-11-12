@@ -39,4 +39,4 @@ const MetricsSection: React.FC<MetricsSectionProps> = ({ athleteId }) => {
   );
 };
 
-export default MetricsSection;
+export default React.memo(MetricsSection);

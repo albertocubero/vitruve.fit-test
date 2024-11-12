@@ -96,4 +96,4 @@ const AthleteForm: React.FC<AthleteFormProps> = ({
   );
 };
 
-export default AthleteForm;
+export default React.memo(AthleteForm);

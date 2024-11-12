@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-export const VitruveFitButton: React.FC = () => {
+export const VitruveFitButton: React.FC = React.memo(() => {
     const href = 'https://vitruve.fit/';
     const title = 'Vitruve';
   
@@ -15,21 +15,21 @@ export const VitruveFitButton: React.FC = () => {
         {title}
       </Link>
     );
-  };
+  });
   
-  export const LinkedInHighLightButton: React.FC = () => {
+  export const LinkedInHighLightButton: React.FC = React.memo(() => {
     const href = 'https://www.linkedin.com/in/alberto-cubero-navas/';
     const title = 'LinkedIn';
   
     return <HighLightButton href={href} title={title} />;
-  };
+  });
   
-  export const GitHubHighLightButton: React.FC = () => {
+  export const GitHubHighLightButton: React.FC = React.memo(() => {
     const href = 'https://github.com/albertocubero';
     const title = 'GitHub';
   
     return <HighLightButton href={href} title={title} />;
-  };
+  });
   
   interface HighLightButtonProps {
     href: string;

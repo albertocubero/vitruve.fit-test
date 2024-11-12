@@ -30,4 +30,4 @@ const AthleteTable: React.FC<AthleteTableProps> = ({ athletes }) => {
   );
 };
 
-export default AthleteTable;
+export default React.memo(AthleteTable);

@@ -36,4 +36,4 @@ const AthleteMetrics: React.FC<AthleteMetricsProps> = ({ athleteId }) => {
   );
 };
 
-export default AthleteMetrics;
+export default React.memo(AthleteMetrics);

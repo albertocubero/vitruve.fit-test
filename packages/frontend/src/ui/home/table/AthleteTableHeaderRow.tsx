@@ -9,4 +9,4 @@ const AthleteTableHeaderRow: React.FC = () => (
   </>
 );
 
-export default AthleteTableHeaderRow;
+export default React.memo(AthleteTableHeaderRow);

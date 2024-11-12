@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { EditAthletePageLayout } from '../layout/EditAthletePageLayout';
 import { EditAthlete } from '../edit/EditAthlete';
 
-const EditPage: React.FC = () => {
+const EditPage: React.FC = React.memo(() => {
   const { athleteId } = useParams<{ athleteId: string }>();
 
   return (
@@ -11,6 +11,6 @@ const EditPage: React.FC = () => {
       <EditAthlete athleteId={athleteId}/>
     </EditAthletePageLayout>
   );
-};
+});
 
 export { EditPage };

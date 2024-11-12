@@ -13,7 +13,7 @@ interface EditAthleteProps {
   athleteId: string;
 }
 
-const EditAthlete: React.FC<EditAthleteProps> = ({ athleteId }) => {
+const EditAthlete: React.FC<EditAthleteProps> = React.memo(({ athleteId }) => {
   const {
     data: athlete,
     error: athleteError,
@@ -57,6 +57,6 @@ const EditAthlete: React.FC<EditAthleteProps> = ({ athleteId }) => {
       </div>
     </>
   );
-};
+});
 
 export { EditAthlete };

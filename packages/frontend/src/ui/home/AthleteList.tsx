@@ -6,7 +6,7 @@ import ErrorMessage from '../common/ErrorMessage';
 import Loading from '../common/Loading';
 import HomePageHeader from './HomePageHeader';
 
-const AthleteList: React.FC = () => {
+const AthleteList: React.FC = React.memo(() => {
   const {
     data: athletes,
     error: athletesError,
@@ -22,6 +22,6 @@ const AthleteList: React.FC = () => {
       {athletesError && <ErrorMessage message={athletesError?.message} />}
     </>
   );
-};
+});
 
 export { AthleteList };
