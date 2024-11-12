@@ -2,11 +2,11 @@
 
 This repository contains a technical test for **Vitruve.fit**. The objective of this test is to demonstrate technical skills in building a full-stack application.
 
-For more details on the requirements and scope of the test, please refer to the [FullStack Technical Test](./FullStack%20Technical%20Test.pdf).
+For more details on the requirements and scope of the test, please refer to the [FullStack Technical Test](./FullStack%20Technical%20Test.pdf) document.
 
 ## Description
 
-You will be tasked with creating a **Performance Tracking Dashboard** for athletes, which will allow users (athletes or coaches) to view and manage athlete profiles and their performance metrics.
+You will be tasked with creating a **Performance Tracking Dashboard** for athletes, which will allow athletes to view and manage athlete profiles and their performance metrics.
 
 ## Technologies and Tools Used
 
@@ -49,6 +49,4 @@ You will be tasked with creating a **Performance Tracking Dashboard** for athlet
    npm run docker:run
    ```
 5. Open url in the browser:
-   ```bash
-   http://localhost:4200/
-   ```
+   [http://localhost:4200/](http://localhost:4200/)
