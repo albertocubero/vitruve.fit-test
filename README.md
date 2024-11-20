@@ -53,6 +53,9 @@ Due to some issues with NX when generating both projects inside Docker container
 ```
 DATABASE_URL="postgresql://[bbdd_user]:[bbdd_password]@localhost:5432/performance-tracker"
 ```
+and change ***[bbdd_user]*** and ***[bbdd_password]*** with your PostgreSQL user and password.
+
+
 5. Install project dependencies:
    ```bash
    npm install
