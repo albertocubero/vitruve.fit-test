@@ -32,24 +32,34 @@ You will be tasked with creating a **Performance Tracking Dashboard** for athlet
   
 ## Instructions to Run the Project
 
-0. Download Docker:
-   [https://www.docker.com/](https://www.docker.com/)
+Due to some issues with NX when generating both projects inside Docker containers, I had to generate the projects outside of Docker and then copy them inside. I couldn't find another way to do it.
 
-1. Clone this repository to your local machine:
+#### ***Prerequisites:***
+1. Install PostgreSQL database on your computer and create a database called ***performance-tracker***. Follow this guide to install it: https://medium.com/@josemiguel.sandoval20/c%C3%B3mo-crear-una-base-de-datos-de-postgresql-en-mac-7b7f2dafe36e 
+
+#### ***Run Project:***
+
+1. Download and Install Docker:
+   [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
+2. Clone this repository to your local machine:
    ```bash
    git clone https://albertocubero@bitbucket.org/albertocubero/vitruve.fit.git
    ```
-2. Enter in the test folder:
+3. Enter in the test folder:
    ```bash
    cd vitruve.fit
    ```
-3. Install project dependencies:
+4. In ***/packages/backend*** create a ***.env*** file with this environment variable:
+```
+DATABASE_URL="postgresql://[bbdd_user]:[bbdd_password]@localhost:5432/performance-tracker"
+```
+5. Install project dependencies:
    ```bash
    npm install
    ```
-4. Run Docker:
+6. Run Docker:
    ```bash
    npm run docker:run
    ```
-5. Open url in the browser:
+7. Open url in the browser:
    [http://localhost:4200/](http://localhost:4200/)
